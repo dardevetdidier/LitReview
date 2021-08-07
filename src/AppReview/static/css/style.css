@@ -22,7 +22,6 @@ header {
     font-family: 'Ubuntu', sans-serif;
     font-size: 2.5rem;
     font-weight: bold;
-
 }
 
 .menu {
@@ -41,18 +40,17 @@ header {
 }
 
 .log-form {
-    padding: 2% 15%;
+    padding: 2% 10%;
     border: black 1px solid;
     border-radius: 20px;
-
+    margin-left: 15rem;
 }
 
 .sign-link {
-    padding: 3% 0;
+    padding: 7% 0;
     border: black 1px solid;
     border-radius: 20px;
 }
 .sign-button {
-    margin-top: 2rem;
-
+    margin-top: 1rem;
 }
