@@ -16,9 +16,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-from src.LitReview import views
+from . import views
+
 
 urlpatterns = [
-    path('', views.index),
+    path('', include('AppReview.urls')),
+    # path('', views.base, name='base'),
     path('admin/', admin.site.urls),
 ]
