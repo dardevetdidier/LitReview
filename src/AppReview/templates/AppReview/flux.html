@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}<title>LitReview accueil</title>{% endblock %}
+
+{% block content %}
+
+    <div class="flux-buttons container-fluid">
+        <button type="button" class="btn btn-dark">Demander une critique</button>
+        <button type="button" class="btn btn-outline-dark">Créer une critique</button>
+    </div>
+
+
+
+    {% for review in reviews %}
+
+        <p>{{ review.time_created }}</p>
+        <h2>{{ review.headline }} - {{ review.rating }} <i class="fas fa-star"></i></h2>
+
+
+        <p>{{ review.body }}</p>
+{#         {{ review.ticket }}#}
+
+        <a href="#" class="btn btn-outline-dark">Go somewhere</a>
+
+
+
+    {% endfor %}
+
+{% endblock %}
+
