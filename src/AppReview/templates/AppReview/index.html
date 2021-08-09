@@ -7,31 +7,33 @@
 
 {% block title %}<title>LitReview accueil</title>{% endblock %}
 
-{% block index %}
+{% block content %}
 
-<div class="container-fluid">
+
+<div class="content container-fluid">
     <div class="index row">
-        
+
         <div class="sign-link col-lg-5">
             <h2>Inscrivez-vous maintenant</h2>
             <a type="link" class="sign-button btn btn-outline-dark btn-sm">S'inscrire</a>
         </div>
-        
+
         <div class="log-form col-lg-5">
             <h2>Connectez-vous</h2>
-            <form>
+            <form method="POST">
+                {% csrf_token %}
                 <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">Nom d'utilisateur</label>
-                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                    <label for="name" class="form-label">Nom d'utilisateur</label>
+                    <input type="text" class="form-control" id="name" >
                 </div>
                 <div class="mb-3">
-                    <label for="exampleInputPassword1" class="form-label">Mot de passe</label>
-                    <input type="password" class="form-control" id="exampleInputPassword1">
+                    <label for="password" class="form-label">Mot de passe</label>
+                    <input type="password" class="form-control" id="password">
                 </div>
                 <button type="submit" class="btn btn-dark btn-sm">Se connecter</button>
             </form>
         </div>
-        
+
     </div>
 </div>
 

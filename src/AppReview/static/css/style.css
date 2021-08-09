@@ -29,9 +29,13 @@ header {
 }
 
 /* INDEX HTML */
+.content {
+    padding: 0 10%;
+}
 
 .index {
-    padding: 3% 5%;
+    justify-content: space-between;
+    padding: 5%;
     text-align: center;
 }
 
@@ -39,18 +43,68 @@ header {
     font-size: 1.3rem;
 }
 
-.log-form {
-    padding: 2% 10%;
+.log-form{
+    padding: 2% 5%;
     border: black 1px solid;
     border-radius: 20px;
-    margin-left: 15rem;
+    margin-top: 2rem;
 }
 
 .sign-link {
     padding: 7% 0;
     border: black 1px solid;
     border-radius: 20px;
+    margin-top: 2rem;
 }
 .sign-button {
     margin-top: 1rem;
+}
+
+/*TICKET*/
+
+
+/*.card-body {*/
+/*    padding: 0;*/
+/*}*/
+
+/*.content-ticket {*/
+/*    padding: 0 20%;*/
+/*}*/
+
+/*.ticket-form {*/
+/*    background-color: beige;*/
+/*    padding: 1%;*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*    justify-content: center;*/
+/*    align-items: flex-start;*/
+/*}*/
+
+
+.create-ticket-title {
+    font-family: 'Ubuntu', sans-serif;
+    /*font-weight: 600;*/
+    /*text-align: center;*/
+}
+.form-label {
+    font-size: 1.5rem;
+}
+.create-ticket-content {
+    padding: 0 15%;
+
+}
+.create-ticket-form{
+    padding: 2% 10%;
+    border: lightgrey 1px solid;
+    border-radius: 20px;
+    margin-top: 2rem;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+.btn-create-ticket {
+    margin-top: 2rem;
+    padding: 1% 10%;
+
+}
+.user-form-label {
+    display: none;
 }
