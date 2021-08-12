@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 
+{#{% url 'add-ticket' as add_ticket %}#}
 
 {% block content %}
 
@@ -13,42 +14,55 @@
 {#    </div>#}
 
 
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <div class="create-ticket-content container-fluid">
+        {% if not 'add-ticket' in request.path %}
+            <h1 class="create-review-title">Créer une Critique</h1>
+        {% endif %}
 
 
-<div class="create-ticket-content container-fluid">
-<h2 class="create-ticket-title">Créer un Ticket</h2>
-        <div class="create-ticket-form ">
+        {% if 'add-ticket' in request.path %}
+            <h2 class="create-title">Créer un Ticket</h2>
+        {% else %}
+            <h2 class="create-title">Livre / Article</h2>
+        {% endif %}
 
-            <form method="POST" enctype="multipart/form-data">
-                {% csrf_token %}
 
-                <div class="user-form-label mb-3">
-                    <label  for="user" class="form-label">Utilisateur</label><br>
-                    {{ form.user }}
-                </div>
-                <div class="mb-3">
-                    <label  for="title" class="form-label">Titre</label><br>
-                    {{ form.title }}
-                </div>
-                <div class="mb-3">
-                    <label for="description" class="form-label">Description</label><br>
-                    {{ form.description }}
+        <div class="create-form ">
 
-                </div>
-                <div class="mb-3">
-                    <label for="image" class="form-label">Image</label><br>
-                    {{ form.image }}
-                </div>
-                <div class="mb-3">
-                <button type="submit" class="btn-create-ticket btn btn-success">Créer</button>
-                </div>
-            </form>
+            <div class="user-form-label mb-3">
+                <label  for="user" class="form-label">Utilisateur</label><br>
+                {{ ticket_form.user }}
+            </div>
+
+            <div class="mb-3">
+                <label  for="title" class="form-label">Titre</label><br>
+                {{ ticket_form.title }}
+            </div>
+
+            <div class="mb-3">
+                <label for="description" class="form-label">Description</label><br>
+                {{ ticket_form.description }}
+            </div>
+
+            <div class="custom-file mb-3">
+                <label for="image" class="custom-file-label">Image</label><br>
+                {{ ticket_form.image }}
+            </div>
         </div>
 
+        {% if 'add-ticket' in request.path %}
+            <button type="submit" class="btn-create btn btn-success">Créer</button>
+        {%  endif %}
 
-</div>
+    </div>
+</form>
 
+{% block add_review %}
 
+{% endblock %}
 
 
 {#    <div class="content-ticket container-fluid">#}

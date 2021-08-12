@@ -2,11 +2,12 @@
 
 body {
     font-family: 'Montserrat', sans-serif;
+    background-color: beige;
 }
 
-header {
-    height: 15vh;
-}
+/*header {*/
+/*    height: 15vh;*/
+/*}*/
 
 .navigation {
     background-color: #212529;
@@ -87,24 +88,34 @@ header {
     /*text-align: center;*/
 }
 .form-label {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
 }
 .create-ticket-content {
-    padding: 0 15%;
-
+    padding: 3% 20%;
 }
-.create-ticket-form{
-    padding: 2% 10%;
+.create-form{
+    padding: 2% 5%;
+    /*margin-bottom: 3%;*/
     border: lightgrey 1px solid;
     border-radius: 20px;
     margin-top: 2rem;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
-.btn-create-ticket {
+.btn-create {
     margin-top: 2rem;
     padding: 1% 10%;
-
+    float: right;
 }
+
 .user-form-label {
     display: none;
+}
+
+.create-review-content {
+    padding: 0 20% 3%;
+    margin-bottom: 3%;
+}
+
+.create-review-title {
+    text-align: center;
 }
