@@ -1,16 +1,41 @@
 from itertools import chain
 
+from django.contrib.auth import authenticate, login
 from django.shortcuts import HttpResponseRedirect
+from django.urls import reverse
 from django.shortcuts import render
 from django.db.models import CharField, Value
 
 from AppReview.models import Review, Ticket
-from .forms import TicketForm, ReviewForm
+from .forms import TicketForm, ReviewForm, RegisterForm, LoginForm
 
 
 def index(request):
-    return render(request, 'AppReview/index.html')
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(request, username=username, password=password)
+        if user:
+            login(request, user)
+            return HttpResponseRedirect(reverse('flux'))
+    else:
+        login_form = LoginForm()
+    return render(request, 'AppReview/index.html', {'login_form': login_form})
 
+
+def register(request):
+    if request.method == 'POST':
+        register_form = RegisterForm(request.POST)
+        if register_form.is_valid():
+            print(register_form.cleaned_data)
+            register_form.save()
+
+        return HttpResponseRedirect(request.path)
+    else:
+        register_form = RegisterForm()
+    return render(request, 'AppReview/register.html', {'register_form': register_form})
+
+# A mettre dans models :______________________
 
 def get_reviews(request):
     """returns a queryset of reviews"""
@@ -20,6 +45,8 @@ def get_reviews(request):
 def get_tickets(request):
     """returns a queryset of tickets"""
     return Ticket.objects.all()
+
+# ___________________________________
 
 
 def flux(request):
@@ -41,6 +68,7 @@ def flux(request):
 
 def add_ticket(request):
     if request.method == 'POST':
+        print(request.user)
         ticket_form = TicketForm(request.POST, request.FILES)
         if ticket_form.is_valid():
             print(ticket_form.cleaned_data)
@@ -59,7 +87,7 @@ def add_review(request):
         ticket_form = TicketForm(request.POST, request.FILES, "ticket_form")
         review_form = ReviewForm(request.POST, request.FILES, "review_form")
         if ticket_form.is_valid() and review_form.is_valid():
-            print("validé")
+            print("valide")
             ticket_form.save()
             review_form.save()
         return HttpResponseRedirect(request.path)

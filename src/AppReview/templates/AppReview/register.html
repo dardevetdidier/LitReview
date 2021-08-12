@@ -1,1 +1,45 @@
-<h1>inscription</h1>
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+
+<form method="POST">
+    {% csrf_token %}
+     <div class="register-content container-fluid">
+         <h1 class="register-title">Inscription</h1>
+        <div class="register-form form-group">
+
+            <div class="mb-3">
+                <label  for="username" class="form-label">Nom d'utilisateur</label><br>
+                {{ register_form.username }}
+            </div>
+
+            <div class="mb-3">
+                <label  for="email" class="form-label">Email</label><br>
+                {{ register_form.email }}
+            </div>
+
+            <div class="mb-3">
+                <label for="password1" class="form-label">Mot de passe</label><br>
+                {{ register_form.password1 }}
+                <p class="infos">8 caractères alpha-numériques minimum</p>
+            </div>
+
+            <div class="custom-file mb-3">
+                <label for="password2" class="form-label">Confirmer mot de passe</label><br>
+                {{ register_form.password2 }}
+            </div>
+            {{ register_form.errors }}
+            <div>
+             <p class="already-reg">Déja inscrit ? <a href="{% url 'index' %}">Connectez-vous</a></p>
+            </div>
+
+        </div>
+
+        <button class='btn-create btn btn-success' type="submit" name="inscription">S'inscrire</button>
+
+     </div>
+</form>
+
+{% endblock %}

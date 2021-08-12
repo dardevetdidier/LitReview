@@ -41,46 +41,69 @@ body {
 }
 
 .index .btn {
-    font-size: 1.3rem;
+    font-size: 1.1rem;
+    padding: 1% 5%;
 }
 
-.log-form{
-    padding: 2% 5%;
-    border: black 1px solid;
+.log-form, .sign-link{
+    padding: 1% 5%;
+    border: lightgrey 1px solid;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     border-radius: 20px;
     margin-top: 2rem;
 }
 
 .sign-link {
-    padding: 7% 0;
-    border: black 1px solid;
-    border-radius: 20px;
-    margin-top: 2rem;
+    padding: 10% 0;
 }
+
 .sign-button {
     margin-top: 1rem;
 }
 
-/*TICKET*/
 
+/*REGISTER*/
 
-/*.card-body {*/
-/*    padding: 0;*/
-/*}*/
+.register-content {
+    padding: 3% 37%;
+}
+.register-form {
+    text-align: center;
+    padding: 10% 8% 2% 8%;
 
-/*.content-ticket {*/
-/*    padding: 0 20%;*/
-/*}*/
+    border: lightgrey 1px solid;
+    border-radius: 20px;
+    margin-top: 2rem;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 
-/*.ticket-form {*/
-/*    background-color: beige;*/
-/*    padding: 1%;*/
-/*    display: flex;*/
-/*    flex-direction: column;*/
-/*    justify-content: center;*/
-/*    align-items: flex-start;*/
-/*}*/
+}
+.register-title {
+    /*text-align: center;*/
+    font-family: 'Ubuntu', sans-serif;
+}
 
+.already-reg {
+    font-size: 0.8rem;
+    text-align: right;
+    padding: 0;
+    margin: 3% 0 0 0;
+}
+
+.infos {
+    padding: 0;
+    margin: 0;
+
+    text-align: center;
+    font-size: 0.7rem;
+}
+
+/*LOGIN*/
+
+.login-title {
+    margin-bottom: 10%;
+}
+
+/*TICKET & REVIEW */
 
 .create-ticket-title {
     font-family: 'Ubuntu', sans-serif;
@@ -93,7 +116,7 @@ body {
 .create-ticket-content {
     padding: 3% 20%;
 }
-.create-form{
+.create-form {
     padding: 2% 5%;
     /*margin-bottom: 3%;*/
     border: lightgrey 1px solid;
@@ -119,3 +142,4 @@ body {
 .create-review-title {
     text-align: center;
 }
+

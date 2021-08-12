@@ -1,40 +1,46 @@
-{% extends 'AppReview/add_ticket.html' %}
+{% extends 'base.html' %}
 
+{% block content %}
 
-<!-- TICKET -->
-{#<div class="create-ticket-content">#}
-{#    <h1 class="create-review-title">Créer une Critique</h1>#}
-{#</div>#}
-    <form action="{% url 'add-review' %}" method="POST" enctype="multipart/form-data">
+    <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
-        {% block add_review %}
-{#        <div class="create-ticket-content container-fluid">#}
-{#            <h1 class="create-review-title">Créer une Critique</h1><br>#}
-{#            <h2 class="create-title">Livre / Article</h2>#}
-{##}
-{#            <div class="create-form ">#}
-{##}
-{#                <div class="user-form-label mb-3">#}
-{#                    <label for="user" class="form-label">Utilisateur</label><br>#}
-{#                    {{ ticket_form.user }}#}
-{#                </div>#}
-{#                <div class="mb-3">#}
-{#                    <label for="title" class="form-label">Titre</label><br>#}
-{#                    {{ ticket_form.title }}#}
-{#                </div>#}
-{##}
-{#                <div class="mb-3">#}
-{#                    <label for="description" class="form-label">Description</label><br>#}
-{#                    {{ ticket_form.description }}#}
-{#                </div>#}
-{##}
-{#                <div class="mb-3">#}
-{#                    <label for="image" class="form-label">Image</label><br>#}
-{#                    {{ ticket_form.image }}#}
-{#                </div>#}
-{##}
-{#            </div>#}
-{#        </div>#}
+
+
+       <!-- TICKET -->
+
+        <div class="create-ticket-content container-fluid">
+
+            <h1 class="create-review-title">Créer une Critique</h1>
+
+
+            <h2 class="create-title">Livre / Article</h2>
+
+
+
+            <div class="create-form ">
+
+                <div class="user-form-label mb-3">
+                    <label  for="user" class="form-label">Utilisateur</label><br>
+                    {{ ticket_form.user }}
+                </div>
+
+                <div class="mb-3">
+                    <label  for="title" class="form-label">Titre</label><br>
+                    {{ ticket_form.title }}
+                </div>
+
+                <div class="mb-3">
+                    <label for="description" class="form-label">Description</label><br>
+                    {{ ticket_form.description }}
+                </div>
+
+                <div class="custom-file mb-3">
+                    <label for="image" class="custom-file-label">Image</label><br>
+                    {{ ticket_form.image }}
+                </div>
+            </div>
+
+        </div>
 
 
 
