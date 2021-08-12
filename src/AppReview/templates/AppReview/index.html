@@ -15,22 +15,22 @@
 
         <div class="sign-link col-lg-5">
             <h2>Inscrivez-vous maintenant</h2>
-            <a type="link" class="sign-button btn btn-outline-dark btn-sm">S'inscrire</a>
+            <a href="{% url 'register' %}" type="link" class="sign-button btn btn-outline-dark btn-sm">S'inscrire</a>
         </div>
 
         <div class="log-form col-lg-5">
-            <h2>Connectez-vous</h2>
+            <h2 class="login-title">Connectez-vous</h2>
             <form method="POST">
                 {% csrf_token %}
                 <div class="mb-3">
-                    <label for="name" class="form-label">Nom d'utilisateur</label>
-                    <input type="text" class="form-control" id="name" >
+                    <label for="username" class="form-label">Nom d'utilisateur</label>
+                    {{login_form.username}}
                 </div>
                 <div class="mb-3">
                     <label for="password" class="form-label">Mot de passe</label>
-                    <input type="password" class="form-control" id="password">
+                    {{ login_form.password}}
                 </div>
-                <button type="submit" class="btn btn-dark btn-sm">Se connecter</button>
+                <button type="submit" class="btn btn-outline-dark btn-sm">Se connecter</button>
             </form>
         </div>
 

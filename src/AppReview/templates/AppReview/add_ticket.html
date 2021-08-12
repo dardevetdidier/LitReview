@@ -18,17 +18,8 @@
     {% csrf_token %}
 
     <div class="create-ticket-content container-fluid">
-        {% if not 'add-ticket' in request.path %}
-            <h1 class="create-review-title">Créer une Critique</h1>
-        {% endif %}
 
-
-        {% if 'add-ticket' in request.path %}
-            <h2 class="create-title">Créer un Ticket</h2>
-        {% else %}
-            <h2 class="create-title">Livre / Article</h2>
-        {% endif %}
-
+        <h2 class="create-title">Créer un Ticket</h2>
 
         <div class="create-form ">
 
@@ -53,16 +44,11 @@
             </div>
         </div>
 
-        {% if 'add-ticket' in request.path %}
-            <button type="submit" class="btn-create btn btn-success">Créer</button>
-        {%  endif %}
+        <button type="submit" class="btn-create btn btn-success">Créer</button>
 
     </div>
+
 </form>
-
-{% block add_review %}
-
-{% endblock %}
 
 
 {#    <div class="content-ticket container-fluid">#}
