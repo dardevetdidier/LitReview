@@ -5,17 +5,12 @@
     <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
 
-
        <!-- TICKET -->
 
         <div class="create-ticket-content container-fluid">
 
             <h1 class="create-review-title">Créer une Critique</h1>
-
-
             <h2 class="create-title">Livre / Article</h2>
-
-
 
             <div class="create-form ">
 
@@ -52,22 +47,36 @@
 
             <div class="create-form ">
 
+{#                <div class="review-ticket mb-3">#}
+{#                    <label for="ticket" class="form-label">Ticket</label><br>#}
+{#                    {{ review_form.ticket }}#}
+{#                </div>#}
+
+{#                <div class="user-form-label mb-3">#}
+{#                    <label  for="user" class="form-label">Utilisateur</label><br>#}
+{#                    {{ review_form.user }}#}
+{#                </div>#}
+
                 <div class="mb-3">
                     <label for="headline" class="form-label">Titre</label><br>
                     {{ review_form.headline }}
                 </div>
 
-                <div >
-                    <label for="rating" class="form-label">Note</label><br>
-                </div>
-
                 {% for i in x|ljust:"5" %}
                     <div class="mb-3 form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="rating"
-                               value='{{ forloop.counter }}'>
+                        {{ review_form.rating }}
+{#                        <input class="form-check-input" type="radio" id="rating"#}
+{#                               value='{{ forloop.counter }}'>#}
                         <label class="form-check-label" for="rating">{{ forloop.counter }}</label>
                     </div>
                 {% endfor %}
+
+            {{ review_form.errors }}
+            {{ review_form.rating.errors }}
+            {{ ticket_form.non_field_errors }}
+            {{ review_form.user.errors }}
+            {{ review_form.ticket.errors }}
+            {{ review_form.non_field_errors }}
 
 
                 <div class="mb-3">
@@ -80,6 +89,8 @@
             <button type="submit" class="btn-create btn btn-success">Créer</button>
 
         </div>
+
+
     </form>
 
 

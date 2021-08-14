@@ -97,6 +97,11 @@ body {
     font-size: 0.7rem;
 }
 
+#messages {
+    text-align: center;
+    margin: auto;
+}
+
 /*LOGIN*/
 
 .login-title {
@@ -141,5 +146,9 @@ body {
 
 .create-review-title {
     text-align: center;
+}
+
+.review-ticket {
+    display: none;
 }
 

@@ -44,7 +44,6 @@ class TicketForm(forms.ModelForm):
     class Meta:
         model = Ticket
         fields = [
-            'user',
             'title',
             'description',
             'image',
@@ -65,7 +64,6 @@ class ReviewForm(forms.ModelForm):
     class Meta:
         model = Review
         fields = [
-            'ticket',
             'headline',
             'rating',
             'body',
@@ -77,5 +75,7 @@ class ReviewForm(forms.ModelForm):
         }
         widgets = {
             'headline': forms.TextInput(attrs={'class': 'form-control'}),
+            'rating': forms.NumberInput(attrs={'class': 'form-check-input',
+                                               'type': 'radio'}),
             'body': forms.Textarea(attrs={'class': 'form-control'}),
         }
