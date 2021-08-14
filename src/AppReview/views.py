@@ -1,14 +1,16 @@
 from itertools import chain
 
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import HttpResponseRedirect
 from django.urls import reverse
 from django.shortcuts import render
 from django.db.models import CharField, Value
 from django.contrib import messages
 
-from AppReview.models import Review, Ticket
+from AppReview.models import Review, Ticket, get_reviews, get_tickets
 from .forms import TicketForm, ReviewForm, RegisterForm, LoginForm
+
 
 
 def index(request):
@@ -21,7 +23,7 @@ def index(request):
             login(request, user)
             return HttpResponseRedirect(reverse('flux'))
         else:
-            messages.info(request, "Il y a une erreur dans le nom d'utilisateur et/ou le mot de passe")
+            messages.info(request, "Erreur dans le nom d'utilisateur et/ou le mot de passe")
 
     return render(request, 'AppReview/index.html', {'login_form': login_form})
 
@@ -39,20 +41,13 @@ def register(request):
         register_form = RegisterForm()
     return render(request, 'AppReview/register.html', {'register_form': register_form})
 
-# A mettre dans models :______________________
 
-def get_reviews(request):
-    """returns a queryset of reviews"""
-    return Review.objects.all()
-
-
-def get_tickets(request):
-    """returns a queryset of tickets"""
-    return Ticket.objects.all()
-
-# ___________________________________
+def logout_user(request):
+    logout(request)
+    return HttpResponseRedirect(reverse('index'))
 
 
+@login_required(login_url='index')
 def flux(request):
     reviews = get_reviews(request.user)
     reviews = reviews.annotate(content_type=Value('REVIEW', CharField()))
@@ -66,10 +61,13 @@ def flux(request):
         key=lambda post: post.time_created,
         reverse=True
     )
+    print(posts)
 
-    return render(request, 'AppReview/flux.html', {'posts': posts})
 
+    return render(request, 'AppReview/flux.html', {'posts': posts,
+                                                   })
 
+@login_required(login_url='index')
 def add_ticket(request):
     if request.method == 'POST':
         print(request.user)
@@ -86,6 +84,7 @@ def add_ticket(request):
     return render(request, 'AppReview/add_ticket.html', {"ticket_form": ticket_form})
 
 
+@login_required(login_url='index')
 def add_review(request):
     print(f"methode = {request.method}")
     ticket_form = TicketForm()
@@ -120,9 +119,16 @@ def add_review(request):
                                                          "ticket_form": ticket_form})
 
 
-def display_ticket(request):
-    return render(request, 'AppReview/ticket_snippet.html', {})
+@login_required(login_url='index')
+def display_tickets(request):
+    tickets = get_tickets(request)
+    return render(request, 'AppReview/ticket_snippet.html', {'tickets': tickets})
 
 
-def display_review(request):
-    return render(request, 'AppReview/review_snippet.html', {})
+@login_required(login_url='index')
+def display_reviews(request):
+    reviews = get_reviews(request)
+    reviews = reviews.annotate(content_type=Value('REVIEW', CharField()))
+    print('test')
+    print(reviews)
+    return render(request, 'AppReview/review_snippet.html', {'reviews': reviews})

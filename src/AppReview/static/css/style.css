@@ -43,6 +43,7 @@ body {
 .index .btn {
     font-size: 1.1rem;
     padding: 1% 5%;
+    margin-bottom: 3%;
 }
 
 .log-form, .sign-link{
@@ -87,6 +88,9 @@ body {
     text-align: right;
     padding: 0;
     margin: 3% 0 0 0;
+}
+.error-message {
+    color: red;
 }
 
 .infos {

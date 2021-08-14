@@ -35,6 +35,15 @@ class UserFollows(models.Model):
     class Meta:
         # ensures we don't get multiple UserFollows instances
         # for unique user-user_followed pairs
-        unique_together = ('user', 'followed_user', )
+        unique_together = ('user', 'followed_user',)
         verbose_name_plural = "UsersFollows"
 
+
+def get_reviews(request):
+    """returns a queryset of reviews"""
+    return Review.objects.all()
+
+
+def get_tickets(request):
+    """returns a queryset of tickets"""
+    return Ticket.objects.all()
