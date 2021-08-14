@@ -7,9 +7,12 @@ from . import views
 urlpatterns = [
     path('', views.index, name='index'),
     path('register/', views.register, name='register'),
+    path('logout/', views.logout_user, name='logout'),
     path('flux/', views.flux, name='flux'),
     path('add-ticket/', views.add_ticket, name='add-ticket'),
     path('add-review/', views.add_review, name='add-review'),
+    # path('review_snipett/', views.display_reviews, name='display_review')
+
 ]
 
 if settings.DEBUG:
