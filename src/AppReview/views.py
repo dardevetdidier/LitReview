@@ -5,12 +5,14 @@ from django.shortcuts import HttpResponseRedirect
 from django.urls import reverse
 from django.shortcuts import render
 from django.db.models import CharField, Value
+from django.contrib import messages
 
 from AppReview.models import Review, Ticket
 from .forms import TicketForm, ReviewForm, RegisterForm, LoginForm
 
 
 def index(request):
+    login_form = LoginForm
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
@@ -18,8 +20,9 @@ def index(request):
         if user:
             login(request, user)
             return HttpResponseRedirect(reverse('flux'))
-    else:
-        login_form = LoginForm()
+        else:
+            messages.info(request, "Il y a une erreur dans le nom d'utilisateur et/ou le mot de passe")
+
     return render(request, 'AppReview/index.html', {'login_form': login_form})
 
 
@@ -27,10 +30,11 @@ def register(request):
     if request.method == 'POST':
         register_form = RegisterForm(request.POST)
         if register_form.is_valid():
-            print(register_form.cleaned_data)
             register_form.save()
+            user = register_form.cleaned_data.get('username')
+            messages.success(request, f'Compte créé avec Succès pour {user}')
 
-        return HttpResponseRedirect(request.path)
+            return HttpResponseRedirect(request.path)
     else:
         register_form = RegisterForm()
     return render(request, 'AppReview/register.html', {'register_form': register_form})
@@ -72,7 +76,9 @@ def add_ticket(request):
         ticket_form = TicketForm(request.POST, request.FILES)
         if ticket_form.is_valid():
             print(ticket_form.cleaned_data)
-            ticket_form.save()
+            ticket = ticket_form.save(commit=False)
+            ticket.user = request.user
+            ticket.save()
         return HttpResponseRedirect(request.path)
     else:
         ticket_form = TicketForm(initial={"user": request.user})
@@ -82,18 +88,33 @@ def add_ticket(request):
 
 def add_review(request):
     print(f"methode = {request.method}")
+    ticket_form = TicketForm()
+
+    # Use add_ticket function
+    add_ticket(request)
     if request.method == 'POST':
         print(f"methode = {request.method}")
-        ticket_form = TicketForm(request.POST, request.FILES, "ticket_form")
-        review_form = ReviewForm(request.POST, request.FILES, "review_form")
-        if ticket_form.is_valid() and review_form.is_valid():
-            print("valide")
-            ticket_form.save()
-            review_form.save()
-        return HttpResponseRedirect(request.path)
+
+        review_form = ReviewForm(request.POST)
+
+        ticket = Ticket.objects.last()
+
+        if review_form.is_valid():
+            print(review_form.cleaned_data)
+            print("review_form valide")
+            review = review_form.save(commit=False)
+            review.ticket = ticket
+            review.user = request.user
+            review.save()
+            return HttpResponseRedirect(request.path)
+
+        else:
+            print("review_form not valid")
+
+
     else:
-        ticket_form = TicketForm(initial={"user": request.user})
-        review_form = ReviewForm(initial={"user": request.user})
+        # ticket_form = TicketForm(initial={"user": request.user})
+        review_form = ReviewForm(initial={"rating": 5})
 
     return render(request, 'AppReview/add_review.html', {"review_form": review_form,
                                                          "ticket_form": ticket_form})
