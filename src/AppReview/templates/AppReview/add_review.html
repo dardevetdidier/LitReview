@@ -51,7 +51,7 @@
 {#                    <label for="ticket" class="form-label">Ticket</label><br>#}
 {#                    {{ review_form.ticket }}#}
 {#                </div>#}
-
+{##}
 {#                <div class="user-form-label mb-3">#}
 {#                    <label  for="user" class="form-label">Utilisateur</label><br>#}
 {#                    {{ review_form.user }}#}
@@ -65,8 +65,8 @@
                 {% for i in x|ljust:"5" %}
                     <div class="mb-3 form-check form-check-inline">
                         {{ review_form.rating }}
-{#                        <input class="form-check-input" type="radio" id="rating"#}
-{#                               value='{{ forloop.counter }}'>#}
+                        <input class="form-check-input" type="radio" id="rating"
+                               value='{{ forloop.counter }}'>
                         <label class="form-check-label" for="rating">{{ forloop.counter }}</label>
                     </div>
                 {% endfor %}

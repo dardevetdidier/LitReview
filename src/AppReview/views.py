@@ -63,9 +63,7 @@ def flux(request):
     )
     print(posts)
 
-
-    return render(request, 'AppReview/flux.html', {'posts': posts,
-                                                   })
+    return render(request, 'AppReview/flux.html', {'posts': posts})
 
 @login_required(login_url='index')
 def add_ticket(request):
@@ -99,36 +97,34 @@ def add_review(request):
         ticket = Ticket.objects.last()
 
         if review_form.is_valid():
-            print(review_form.cleaned_data)
-            print("review_form valide")
+            # print(review_form.cleaned_data)
+            # print("review_form valide")
             review = review_form.save(commit=False)
             review.ticket = ticket
             review.user = request.user
             review.save()
-            return HttpResponseRedirect(request.path)
-
-        else:
-            print("review_form not valid")
-
+        return HttpResponseRedirect(request.path)
 
     else:
-        # ticket_form = TicketForm(initial={"user": request.user})
         review_form = ReviewForm(initial={"rating": 5})
 
     return render(request, 'AppReview/add_review.html', {"review_form": review_form,
                                                          "ticket_form": ticket_form})
 
-
 @login_required(login_url='index')
-def display_tickets(request):
-    tickets = get_tickets(request)
-    return render(request, 'AppReview/ticket_snippet.html', {'tickets': tickets})
+def reply_ticket(request, pk):
+    ticket = Ticket.objects.get(id=pk)
+    print(ticket)
+    if request.method == 'POST':
+        review_form = ReviewForm(request.POST)
+        if review_form.is_valid():
+            reply = review_form.save(commit=False)
+            reply.user = request.user
+            reply.ticket = ticket
+            reply.save()
+        return HttpResponseRedirect(reverse('flux'))
 
+    else:
+        review_form = ReviewForm(initial={"rating": 5})
 
-@login_required(login_url='index')
-def display_reviews(request):
-    reviews = get_reviews(request)
-    reviews = reviews.annotate(content_type=Value('REVIEW', CharField()))
-    print('test')
-    print(reviews)
-    return render(request, 'AppReview/review_snippet.html', {'reviews': reviews})
+    return render(request, 'AppReview/reply_ticket.html', {"reply_form": review_form})
