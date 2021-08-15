@@ -11,8 +11,7 @@ urlpatterns = [
     path('flux/', views.flux, name='flux'),
     path('add-ticket/', views.add_ticket, name='add-ticket'),
     path('add-review/', views.add_review, name='add-review'),
-    # path('review_snipett/', views.display_reviews, name='display_review')
-
+    path('reply-ticket/<str:pk>/', views.reply_ticket, name='reply-ticket')
 ]
 
 if settings.DEBUG:

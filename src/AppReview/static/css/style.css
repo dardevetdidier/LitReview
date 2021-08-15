@@ -152,7 +152,16 @@ body {
     text-align: center;
 }
 
-.review-ticket {
-    display: none;
+/*.review-ticket {*/
+/*    display: none;*/
+/*}*/
+
+/*SNIPPET*/
+
+.snippet-content {
+    padding: 2% 25% 0 25%;
 }
 
+/*.snippet-card {*/
+/*    width: 50rem;*/
+/*}*/

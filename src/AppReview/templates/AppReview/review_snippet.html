@@ -1,10 +1,26 @@
+{% if post.user == post.ticket.user %}
+{{ "ok" }}
+{% endif %}
+
+<div class=" snippet-content container-fluid">
+    <div class="card">
+        <div class="card-body">
+            <p>Critique de {{ post.user }} posté le {{ post.time_created }}</p>
+            <h5 class="card-title">{{ post.headline }}</h5>
+            <h6 class="card-subtitle mb-2 text-muted">{{ post.rating }}</h6>
+            <p class="card-text">{{ post.body }}</p>
+
+
+            <a href="#" class="card-link">Modifier</a>
+            <a href="#" class="card-link">Supprimer</a>
+
+        </div>
+
+    </div>
+</div>
 
 
 
-{#{{ post.review.headline }}#}
-{#{{ post.review }}#}
-    {% for review in reviews %}
-{{review.headline }}
 {#        rating = {{ post.rating|get_digit:"1" }}#}
 {#        <hr>#}
 {#        <h2>{{ post.headline }} - {{ post.review.rating }} </h2>#}
@@ -18,7 +34,7 @@
 {##}
 {#        <p>{{ post.review.body }}</p>#}
 {##}
-    {% endfor %}
+{#    {% endfor %}#}
 {#<br>#}
 {#<a href="#" class="btn btn-outline-dark">Go somewhere</a>#}
 {#<br>#}

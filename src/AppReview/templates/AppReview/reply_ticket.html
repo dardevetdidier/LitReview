@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block title %} <title>Ajouter une critique</title> {% endblock %}
+
+{% block content %}
+    <br>
+<form method="POST">
+    {% csrf_token %}
+    <div class="create-review-content container-fluid">
+
+        <h2 class="create-title">Critique</h2>
+
+        <div class="create-form ">
+
+{#            <div class="review-ticket mb-3">#}
+{#                <label for="ticket" class="form-label">Ticket</label><br>#}
+{#                {{ reply_form.ticket }}#}
+{#            </div>#}
+
+            <div class="mb-3">
+                <label for="headline" class="form-label">Titre</label><br>
+                {{ reply_form.headline }}
+            </div>
+
+            {% for i in x|ljust:"5" %}
+                <div class="mb-3 form-check form-check-inline">
+                    {{ reply_form.rating }}
+                    {#                        <input class="form-check-input" type="radio" id="rating"#}
+                    {#                               value='{{ forloop.counter }}'>#}
+                    <label class="form-check-label" for="rating">{{ forloop.counter }}</label>
+                </div>
+            {% endfor %}
+
+            {{ reply_form.errors }}
+            {{ reply_form.rating.errors }}
+            {{ reply_form.non_field_errors }}
+            {{ reply_form.user.errors }}
+            {{ reply_form.ticket.errors }}
+            {{ reply_form.non_field_errors }}
+
+
+            <div class="mb-3">
+                <label for="body" class="form-label">Commentaire</label><br>
+                {{ reply_form.body }}
+            </div>
+
+        </div>
+
+        <button type="submit" class="btn-create btn btn-success">Créer</button>
+
+    </div>
+
+</form>
+
+{% endblock %}
