@@ -12,7 +12,6 @@ from AppReview.models import Review, Ticket, get_reviews, get_tickets
 from .forms import TicketForm, ReviewForm, RegisterForm, LoginForm
 
 
-
 def index(request):
     login_form = LoginForm
     if request.method == 'POST':
@@ -61,9 +60,9 @@ def flux(request):
         key=lambda post: post.time_created,
         reverse=True
     )
-    print(posts)
 
     return render(request, 'AppReview/flux.html', {'posts': posts})
+
 
 @login_required(login_url='index')
 def add_ticket(request):
@@ -84,12 +83,13 @@ def add_ticket(request):
 
 @login_required(login_url='index')
 def add_review(request):
-    print(f"methode = {request.method}")
+    stars = []
     ticket_form = TicketForm()
 
     # Use add_ticket function
     add_ticket(request)
     if request.method == 'POST':
+
         print(f"methode = {request.method}")
 
         review_form = ReviewForm(request.POST)
@@ -103,18 +103,21 @@ def add_review(request):
             review.ticket = ticket
             review.user = request.user
             review.save()
-        return HttpResponseRedirect(request.path)
+
+        return HttpResponseRedirect(reverse('flux'))
 
     else:
-        review_form = ReviewForm(initial={"rating": 5})
+        review_form = ReviewForm()
 
     return render(request, 'AppReview/add_review.html', {"review_form": review_form,
-                                                         "ticket_form": ticket_form})
+                                                         "ticket_form": ticket_form,
+                                                         })
+
 
 @login_required(login_url='index')
 def reply_ticket(request, pk):
     ticket = Ticket.objects.get(id=pk)
-    print(ticket)
+    # print(ticket)
     if request.method == 'POST':
         review_form = ReviewForm(request.POST)
         if review_form.is_valid():
@@ -125,6 +128,10 @@ def reply_ticket(request, pk):
         return HttpResponseRedirect(reverse('flux'))
 
     else:
-        review_form = ReviewForm(initial={"rating": 5})
+        review_form = ReviewForm()
 
     return render(request, 'AppReview/reply_ticket.html', {"reply_form": review_form})
+
+
+def modify(request):
+    pass

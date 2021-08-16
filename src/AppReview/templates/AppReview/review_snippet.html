@@ -1,19 +1,67 @@
-{% if post.user == post.ticket.user %}
-{{ "ok" }}
-{% endif %}
+
 
 <div class=" snippet-content container-fluid">
-    <div class="card">
+
+    {#    REVIEW#}
+
+    <div class="snippet-card rounded-3 card">
+
+        <div class="card-header-snippet card-header vh-15">
+            <div class="row">
+                <div class="header-title-time col-lg-6">
+                    <p class="snippet-title card-title">{{ post.user }} a posté une critique</p>
+                    <p class="snippet-time card-title">{{ post.time_created }}</p>
+                </div>
+
+                {% if post.user == user %}
+                    <div class="edit-del-buttons col-lg-6">
+                        <a href="#" class="card-link" title="Modifier"><i class="fas fa-edit"></i></a>
+                        <a href="#" class="card-link" title="Supprimer"><i class="fas fa-trash-alt"></i></a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
         <div class="card-body">
-            <p>Critique de {{ post.user }} posté le {{ post.time_created }}</p>
-            <h5 class="card-title">{{ post.headline }}</h5>
-            <h6 class="card-subtitle mb-2 text-muted">{{ post.rating }}</h6>
+            <h5 class="review-title-card card-title">{{ post.headline }}</h5>
+            <h6 class="note-review card-subtitle mb-2 text-muted">Note : {{ post.rating }} / 5</h6>
+{#            {% for i in post.rating %}#}
+{#            <i class="fas fa-star"></i>#}
+{#            {% endfor %}#}
             <p class="card-text">{{ post.body }}</p>
 
 
-            <a href="#" class="card-link">Modifier</a>
-            <a href="#" class="card-link">Supprimer</a>
+        </div>
 
+        {#    TICKET#}
+
+        <div class="ticket-in-review card">
+            <div class="card-header-snippet card-header vh-15">
+                <p class="ticket-review-snippet-title ">Ticket de {{ post.ticket.user }} posté le {{ post.ticket.time_created }}</p>
+
+            </div>
+
+            <div class="card-body">
+                <h5 class="card-title">{{ post.ticket.title }}</h5>
+
+                <div class="snippet-body row">
+
+                    <div class="col-lg-7"><p class="snippet-description">{{ post.ticket.description }}</p></div>
+
+                    {% if post.ticket.image %}
+                        <div class="ticket-image col-lg-5">
+                            <img class='img-fluid' src="{{ media_url }}{{ post.ticket.image.url }}/" alt="illustration livre">
+                        </div>
+                    {% endif %}
+
+                </div>
+
+
+                {% if not post.ticket %}
+                    <a href="{% url 'reply-ticket' post.id %}">Répondre</a>
+                {% endif %}
+
+            </div>
         </div>
 
     </div>

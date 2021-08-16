@@ -27,6 +27,7 @@ body {
 
 .menu {
     font-family: 'Montserrat', sans-serif;
+    justify-content: flex-end;
 }
 
 /* INDEX HTML */
@@ -116,15 +117,16 @@ body {
 
 .create-ticket-title {
     font-family: 'Ubuntu', sans-serif;
-    /*font-weight: 600;*/
-    /*text-align: center;*/
 }
+
 .form-label {
     font-size: 1.3rem;
 }
+
 .create-ticket-content {
     padding: 3% 20%;
 }
+
 .create-form {
     padding: 2% 5%;
     /*margin-bottom: 3%;*/
@@ -133,6 +135,7 @@ body {
     margin-top: 2rem;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
+
 .btn-create {
     margin-top: 2rem;
     padding: 1% 10%;
@@ -151,17 +154,116 @@ body {
 .create-review-title {
     text-align: center;
 }
-
-/*.review-ticket {*/
-/*    display: none;*/
-/*}*/
-
-/*SNIPPET*/
-
-.snippet-content {
-    padding: 2% 25% 0 25%;
+ul {
+    width: 50%;
+}
+li {
+    display: inline-block;
+    margin-right: 4%;
+}
+.radio-button {
+    margin-right: 0;
 }
 
-/*.snippet-card {*/
-/*    width: 50rem;*/
+
+/* SNIPPET - FLUX */
+
+.flux-buttons {
+    padding: 0 20%;
+    margin-top: 2%;
+}
+
+.flux-button-right, .flux-button-left {
+    text-align: center;
+}
+.flux-button-right a, .flux-button-left a {
+    width: 15rem;
+}
+.btn-dark:hover {
+    background-color: transparent;
+    color: black;
+}
+
+.snippet-content {
+    padding: 2% 20% 0 20%;
+}
+
+.snippet-card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+}
+.snippet-card h5 {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.snippet-title, .snippet-time {
+    color: dimgrey;
+    margin: 0;
+    font-size: 1.3rem;
+    font-weight: 200;
+}
+
+.snippet-time {
+    font-size: 0.8rem;
+}
+
+.card-header-snippet {
+    font-family: 'Ubuntu', sans-serif;
+    vertical-align: center;
+}
+.ticket-review-snippet-title {
+    color: dimgrey;
+}
+.edit-del-buttons {
+    text-align: end;
+    padding: 1.5% 2%;
+}
+
+.edit-del-buttons i{
+    color: dimgrey;
+    font-size: 1.5rem;
+}
+
+.edit-del-buttons i:hover {
+    color: #212529;
+}
+
+.review-title-card {
+    font-size: 1.2rem;
+}
+.answer-button {
+    margin-top: 2%;
+    text-align: center;
+}
+.answer-button .btn{
+    padding: 0.5% 10%;
+
+}
+.note-review {
+    font-size: 1.2rem;
+}
+/*.snippet-body {*/
+/*    display: flex;*/
+/*    justify-content: flex-start;*/
+/*    padding-top: 2%;*/
+
 /*}*/
+.snippet-description {
+    width: 100%;
+    height: 100%;
+    padding: 2%;
+    margin-right: 5%;
+    margin-bottom: 2%;
+    border: lightgray 1px solid;
+}
+.ticket-image {
+    text-align: center;
+}
+.ticket-in-review {
+    margin: 2% 5% 5% 5%;
+}
+
+.ticket-in-review p {
+    margin-bottom: 0;
+}

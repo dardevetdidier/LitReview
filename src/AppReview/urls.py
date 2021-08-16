@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.conf.urls.static import static
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 from django.urls import path
 from . import views
@@ -13,6 +14,7 @@ urlpatterns = [
     path('add-review/', views.add_review, name='add-review'),
     path('reply-ticket/<str:pk>/', views.reply_ticket, name='reply-ticket')
 ]
+
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -61,7 +61,10 @@ class TicketForm(forms.ModelForm):
 
 
 class ReviewForm(forms.ModelForm):
+
+
     class Meta:
+        CHOICES = [('1', 1), ('2', 2), ('3', 3), ('4', 4), ('5', 5)]
         model = Review
         fields = [
             'headline',
@@ -75,7 +78,6 @@ class ReviewForm(forms.ModelForm):
         }
         widgets = {
             'headline': forms.TextInput(attrs={'class': 'form-control'}),
-            'rating': forms.NumberInput(attrs={'class': 'form-check-input',
-                                               'type': 'radio'}),
+            'rating': forms.RadioSelect(choices=CHOICES, attrs={'class': 'form-check-inline radio-button'}),
             'body': forms.Textarea(attrs={'class': 'form-control'}),
         }

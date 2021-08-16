@@ -1,12 +1,37 @@
+
+
 <div class="snippet-content container-fluid">
-    <div class="snippet-card card">
-        <div class="card-body">
-            <p>Ticket de {{ post.user }} posté le {{ post.time_created }}</p>
+    <div class="snippet-card card ">
+
+{#       header#}
+        <div class="card-header-snippet card-header">
+            <p class="snippet-title card-title">{{ post.user }} a demandé une critique</p>
+            <p class="snippet-time card-title">{{ post.time_created }}</p>
+        </div>
+
+{#      body#}
+        <div class="card-body ">
             <h5 class="card-title">{{ post.title }}</h5>
 
-            <p class="card-text">{{ post.description }}</p>
-            <a href="{% url 'reply-ticket' post.id %}">Répondre</a>
-            <a href="#" class="card-link">Another link</a>
+            <div class="snippet-body row">
+
+                <div class="col-lg-8">
+                    <p class="snippet-description">{{ post.description }}</p>
+                </div>
+                {% if post.image %}
+                    <div class="ticket-image col-lg-4">
+                        <img class='img-fluid' src="{{ media_url }}{{ post.image.url }}/" alt="illustration livre">
+                    </div>
+                {% endif %}
+            </div>
+
+                {% if post.review.ticket != post.title %}
+                    <div class="answer-button">
+                        <a href="#" type="button" class="btn btn-dark btn-lg">Répondre</a>
+                    </div>
+                {% endif %}
+
         </div>
     </div>
 </div>
+

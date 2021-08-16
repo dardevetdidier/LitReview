@@ -5,8 +5,18 @@
 {% block content %}
 
     <div class="flux-buttons container-fluid">
-        <button type="button" class="btn btn-dark">Demander une critique</button>
-        <button type="button" class="btn btn-outline-dark">Créer une critique</button>
+
+        <div class="buttons-row row">
+            <div class="flux-button-left col-lg-6">
+                <a href="{% url 'add-ticket' %}" title="Demander une critique" type="button"
+                   class="btn btn-dark btn-lg">Créer un ticket</a>
+            </div>
+            <div class="flux-button-right col-lg-6">
+                <a href="{% url 'add-review' %}" type="button" class="btn btn-outline-dark btn-lg ">Créer une
+                    critique</a>
+            </div>
+        </div>
+
     </div>
 
 
