@@ -5,9 +5,24 @@
 
 {#       header#}
         <div class="card-header-snippet card-header">
-            <p class="snippet-title card-title">{{ post.user }} a demandé une critique</p>
-            <p class="snippet-time card-title">{{ post.time_created }}</p>
+            <div class="row">
+                <div class="header-title-time col-lg-6">
+                    <p class="snippet-title card-title">{{ post.user }} a demandé une critique</p>
+                    <p class="snippet-time card-title">{{ post.time_created }}</p>
+                </div>
+
+                {% if post.user == user %}
+                    <div class="edit-del-buttons col-lg-6">
+                        <a href="{% url 'modify-ticket' post.id %}" class="card-link" title="Modifier"><i
+                                class="fas fa-edit"></i></a>
+                        <a href="#" class="card-link" title="Supprimer"><i class="fas fa-trash-alt"></i></a>
+                    </div>
+                {% endif %}
+            </div>
+
         </div>
+
+
 
 {#      body#}
         <div class="card-body ">

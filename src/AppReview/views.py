@@ -147,12 +147,21 @@ def modify_review(request, pk):
             modify.save()
         return HttpResponseRedirect(reverse('flux'))
 
-
     return render(request, 'AppReview/modify_review.html', {'modify_review_form': modify_review_form,
                                                             'review': review})
 
 
-
-
 def modify_ticket(request, pk):
-    pass
+    ticket = Ticket.objects.get(id=pk)
+    modify_ticket_form = TicketForm(instance=ticket)
+
+    if request.method == 'POST':
+        modify_ticket_form = TicketForm(request.POST, instance=ticket)
+        if modify_ticket_form.is_valid():
+            modify = modify_ticket_form.save(commit=False)
+            ticket.time_created = timezone.now()
+            modify.save()
+        return HttpResponseRedirect(reverse('flux'))
+
+    return render(request, 'AppReview/modify_ticket.html', {'modify_ticket_form': modify_ticket_form,
+                                                            'ticket': ticket})

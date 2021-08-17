@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block title %} <title>Modifier Ticket</title>  {% endblock %}
+
+{% block content %}
+
+<h1>Modifier Ticket</h1>
+
+    <form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <div class="create-ticket-content container-fluid">
+
+        <h2 class="create-title">Modifier un Ticket</h2>
+
+        <div class="create-form ">
+
+{#            <div class="user-form-label mb-3">#}
+{#                <label  for="user" class="form-label">Utilisateur</label><br>#}
+{#                {{ ticket_form.user }}#}
+{#            </div>#}
+
+            <div class="mb-3">
+                <label  for="title" class="form-label">Titre</label><br>
+                {{ modify_ticket_form.title }}
+            </div>
+
+            <div class="mb-3">
+                <label for="description" class="form-label">Description</label><br>
+                {{ modify_ticket_form.description }}
+            </div>
+
+            <div class="custom-file mb-3">
+                <label for="image" class="custom-file-label">Image</label><br>
+                {{ modify_ticket_form.image }}
+            </div>
+        </div>
+
+        <button type="submit" class="btn-create btn btn-success">Créer</button>
+
+    </div>
+
+</form>
+{% endblock %}
+
