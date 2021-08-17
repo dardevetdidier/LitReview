@@ -264,6 +264,22 @@ li {
     margin: 2% 5% 5% 5%;
 }
 
+.title-modifying {
+    font-weight: bold;
+}
+
 .ticket-in-review p {
     margin-bottom: 0;
+}
+
+
+/*MODIFY*/
+
+.modify-title {
+    text-align: center;
+    padding: 2%;
+}
+
+.image-modify {
+    margin-bottom: 2%;
 }

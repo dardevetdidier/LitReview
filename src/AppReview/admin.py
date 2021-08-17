@@ -4,6 +4,24 @@ from .models import Ticket, Review, UserFollows
 
 # Register your models here.
 
-admin.site.register(Ticket)
-admin.site.register(Review)
-admin.site.register(UserFollows)
+@admin.register(Ticket)
+class TicketAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(Review)
+class ReviewAdmin(admin.ModelAdmin):
+    list_display = (
+        "ticket",
+        "user",
+        "rating",
+        "time_created",
+    )
+    empty_value_display = "Inconnu"
+
+
+@admin.register(UserFollows)
+class UserFollowsAdmin(admin.ModelAdmin):
+    pass
+
+

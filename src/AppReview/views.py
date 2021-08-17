@@ -1,3 +1,4 @@
+import datetime
 from itertools import chain
 
 from django.contrib.auth import authenticate, login, logout
@@ -7,6 +8,7 @@ from django.urls import reverse
 from django.shortcuts import render
 from django.db.models import CharField, Value
 from django.contrib import messages
+from django.utils import timezone
 
 from AppReview.models import Review, Ticket, get_reviews, get_tickets
 from .forms import TicketForm, ReviewForm, RegisterForm, LoginForm
@@ -133,5 +135,24 @@ def reply_ticket(request, pk):
     return render(request, 'AppReview/reply_ticket.html', {"reply_form": review_form})
 
 
-def modify(request):
+def modify_review(request, pk):
+    review = Review.objects.get(id=pk)
+    modify_review_form = ReviewForm(instance=review)
+
+    if request.method == 'POST':
+        modify_review_form = ReviewForm(request.POST, instance=review)
+        if modify_review_form.is_valid():
+            modify = modify_review_form.save(commit=False)
+            modify.time_created = timezone.now()
+            modify.save()
+        return HttpResponseRedirect(reverse('flux'))
+
+
+    return render(request, 'AppReview/modify_review.html', {'modify_review_form': modify_review_form,
+                                                            'review': review})
+
+
+
+
+def modify_ticket(request, pk):
     pass
