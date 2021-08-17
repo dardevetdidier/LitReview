@@ -4,31 +4,15 @@
 
 {% block content %}
 
-
-
-
-
     <form method="POST">
     {% csrf_token %}
 
     <div class="create-review-content container-fluid">
 
-
-
         <h2 class="modify-title">Modifier votre critique - <span class="title-modifying">{{ review.ticket.title }}</span></h2>
 
             <div class="create-form ">
                 <img class='image-modify img-fluid' src="{{ media_url }}{{ review.ticket.image.url }}/" alt="illustration livre">
-
-{#                <div class="review-ticket mb-3">#}
-{#                    <label for="ticket" class="form-label">Ticket</label><br>#}
-{#                    {{ review_form.ticket }}#}
-{#                </div>#}
-{##}
-{#                <div class="user-form-label mb-3">#}
-{#                    <label  for="user" class="form-label">Utilisateur</label><br>#}
-{#                    {{ review_form.user }}#}
-{#                </div>#}
 
                 <div class="mb-3">
                     <label for="headline" class="form-label">Titre</label><br>
@@ -37,7 +21,7 @@
 
 {#                {% for i in x|ljust:"5" %}#}
                     <div class="mb-3 ">
-                <label class="form-label" for="rating">Note</label>
+                        <label class="form-label" for="rating">Note</label>
                         {{ modify_review_form.rating }}
 {#                        <input class="form-check-input" type="radio" id="rating"#}
 {#                               value='{{ forloop.counter }}'>#}
@@ -63,7 +47,11 @@
             <button type="submit" class="btn-create btn btn-success">Modifier</button>
 
         </div>
+<!-- Modal -->
 
+        {% include 'AppReview/modify_modal.html' %}
+
+<!-- MODAL -->
 
     </form>
 {% endblock %}

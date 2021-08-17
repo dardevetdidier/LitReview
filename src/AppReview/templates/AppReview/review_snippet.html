@@ -16,7 +16,7 @@
                 {% if post.user == user %}
                     <div class="edit-del-buttons col-lg-6">
                         <a href="{% url 'modify-review' post.id %}" class="card-link" title="Modifier"><i class="fas fa-edit"></i></a>
-                        <a href="#" class="card-link" title="Supprimer"><i class="fas fa-trash-alt"></i></a>
+                        <a href="{% url 'delete-review' post.id %}" class="card-link" title="Supprimer"><i class="fas fa-trash-alt"></i></a>
                     </div>
                 {% endif %}
             </div>

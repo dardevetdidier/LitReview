@@ -36,10 +36,19 @@
             </div>
         </div>
 
-        <button type="submit" class="btn-create btn btn-success">Créer</button>
+        <button type="button" class="btn-create btn btn-success" data-bs-toggle="modal" data-bs-target="#modifyModal">Modifier</button>
 
     </div>
 
+
+{#<!-- Modal -->#}
+
+        {% include 'AppReview/modify_modal.html' %}
+
+{#<!-- MODAL -->#}
+
 </form>
+
+
 {% endblock %}
 

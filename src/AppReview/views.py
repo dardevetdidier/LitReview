@@ -1,4 +1,3 @@
-import datetime
 from itertools import chain
 
 from django.contrib.auth import authenticate, login, logout
@@ -135,6 +134,7 @@ def reply_ticket(request, pk):
     return render(request, 'AppReview/reply_ticket.html', {"reply_form": review_form})
 
 
+@login_required(login_url='index')
 def modify_review(request, pk):
     review = Review.objects.get(id=pk)
     modify_review_form = ReviewForm(instance=review)
@@ -151,6 +151,7 @@ def modify_review(request, pk):
                                                             'review': review})
 
 
+@login_required(login_url='index')
 def modify_ticket(request, pk):
     ticket = Ticket.objects.get(id=pk)
     modify_ticket_form = TicketForm(instance=ticket)
@@ -165,3 +166,20 @@ def modify_ticket(request, pk):
 
     return render(request, 'AppReview/modify_ticket.html', {'modify_ticket_form': modify_ticket_form,
                                                             'ticket': ticket})
+
+
+@login_required(login_url='index')
+def delete_review(request, pk):
+    print(request)
+    review = Review.objects.get(id=pk)
+    if request.method == 'POST':
+        review.delete()
+        return HttpResponseRedirect(reverse('flux'))
+
+    return render(request, 'AppReview/delete_review.html', {'review': review})
+
+
+@login_required(login_url='index')
+def delete_ticket(request, pk):
+    pass
+

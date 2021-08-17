@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+
+{% block title %} <title>Supprimer Critique</title> {% endblock %}
+
+
+
+{% block content %}
+
+<div class=" snippet-content container-fluid">
+
+    {#    REVIEW#}
+
+    <div class="snippet-card rounded-3 card">
+
+        <div class="card-header-snippet card-header vh-15">
+            <div class="row">
+                <div class="header-title-time col-lg-6">
+                    <p class="snippet-title card-title">{{ review.user }} a posté une critique</p>
+                    <p class="snippet-time card-title">{{ review.time_created }}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-body">
+            <h5 class="review-title-card card-title">{{ review.headline }}</h5>
+            <h6 class="note-review card-subtitle mb-2 text-muted">Note : {{ review.rating }} / 5</h6>
+{#            {% for i in post.rating %}#}
+{#            <i class="fas fa-star"></i>#}
+{#            {% endfor %}#}
+            <p class="card-text">{{ review.body }}</p>
+
+
+        </div>
+
+        {#    TICKET#}
+
+        <div class="ticket-in-review card">
+            <div class="card-header-snippet card-header vh-15">
+                <p class="ticket-review-snippet-title ">Ticket de {{ review.ticket.user }} posté le {{ review.ticket.time_created }}</p>
+            </div>
+
+            <div class="card-body">
+                <h5 class="card-title">{{ review.ticket.title }}</h5>
+
+                <div class="snippet-body row">
+                    <div class="col-lg-7"><p class="snippet-description">{{ review.ticket.description }}</p></div>
+
+                    {% if review.ticket.image %}
+                        <div class="ticket-image col-lg-5">
+                            <img class='img-fluid' src="{{ media_url }}{{ review.ticket.image.url }}/" alt="illustration livre">
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+    <div class="delete-review-buttons container-fluid">
+        <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#deleteModal">Supprimer
+        </button>
+        <a href="{% url 'flux' %}">
+            <button type="button" class="btn btn-outline-dark">Annuler</button>
+        </a>
+    </div>
+
+    <form action="{% url 'delete-review' review.id %}" method="post">
+    {% csrf_token %}
+    <!-- Modal -->
+        <div class="modal fade" id="deleteModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header ">
+              <h5 class="modal-title " id="deleteModalLabel"></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body text-center">
+                CONFIRMER ?
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" >Annuler</button>
+
+                      <button type="submit" class="btn btn-primary">Confirmer</button>
+                  
+              </div>
+            </div>
+          </div>
+        </div>
+
+<!-- MODAL -->
+</form>
+{% endblock %}

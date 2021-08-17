@@ -41,14 +41,41 @@
                             <li><a class="nav-link" href="{% url 'flux' %}">Flux</a></li>
                             <li><a class="nav-link" href="#">Posts</a></li>
                             <li><a class="nav-link" href="#">Abonnements</a></li>
-                            <li><a class="nav-link" href="{% url 'logout' %}">Se déconnecter</a></li>
+                            <li><a class="nav-link" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop" >Se déconnecter</a></li>
                         </ul>
                     </div>
                     
                     {% endif %}
                     
                 </nav>
+
+            <!-- Button trigger modal -->
+{#<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">#}
+{#  Launch static backdrop modal#}
+{#</button>#}
+
+<!-- Modal -->
+                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header ">
+                      <h5 class="modal-title " id="staticBackdropLabel"></h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body text-center">
+                        CONFIRMER ?
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" >Annuler</button>
+                          <a href="{% url 'logout' %}"><button type="button" class="btn btn-primary" >Confirmer</button></a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+<!-- MODAL -->
+
             </div>
+
             
         </header>
         
