@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+
+{% block title %} <title>Supprimer Ticket</title> {% endblock %}
+
+
+
+{% block content %}
+
+
+
+    <div class="snippet-content container-fluid">
+        <h2>Supprimer un ticket</h2>
+        <div class="snippet-card card ">
+
+            <!-- HEADER -->
+            <div class="card-header-snippet card-header">
+                <div class="row">
+                    <div class="header-title-time col-lg-6">
+                        <p class="snippet-title card-title">{{ ticket.user }} a demandé une critique</p>
+                        <p class="snippet-time card-title">{{ ticket.time_created }}</p>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <!-- BODY -->
+            <div class="card-body ">
+                <h5 class="card-title">{{ ticket.title }}</h5>
+
+                <div class="snippet-body row">
+                    <div class="col-lg-8">
+                        <p class="snippet-description">{{ ticket.description }}</p>
+                    </div>
+
+                    {% if ticket.image %}
+                        <div class="ticket-image col-lg-4">
+                            <img class='img-fluid' src="{{ media_url }}{{ ticket.image.url }}/" alt="illustration livre">
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+{#            BUTTONS#}
+             <div class="modify-buttons">
+                 <a href="{% url 'flux' %}">
+                    <button type="button" class="btn-create btn btn-outline-dark">Annuler</button>
+                </a>
+                <button type="button" class="btn-create btn btn-dark" data-bs-toggle="modal" data-bs-target="#deleteModal">Supprimer
+                </button>
+            </div>
+
+    </div>
+
+
+
+
+    <form action="{% url 'delete-ticket' ticket.id %}" method="post">
+        {% csrf_token %}
+
+        <!-- Modal -->
+        <div class="modal fade" id="deleteModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+             aria-labelledby="deleteModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header ">
+                        <h5 class="modal-title " id="deleteModalLabel"></h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body text-center">
+                        CONFIRMER ?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+
+                        <button type="submit" class="btn btn-primary">Confirmer</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- MODAL -->
+    </form>
+
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %} <title>Mes posts</title> {% endblock %}
+
+
+{% block content %}
+    <div class="posts-title container-fluid">
+        <h2 class="create-title">Mes posts</h2>
+    </div>
+    {% for post in posts %}
+        {% if post.content_type == 'TICKET' %}
+            {% include 'AppReview/ticket_snippet.html' %}
+        {% elif post.content_type == 'REVIEW' %}
+            {% include 'AppReview/review_snippet.html' %}
+        {% endif %}
+    {% endfor %}
+
+{% endblock %}

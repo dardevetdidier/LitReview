@@ -8,6 +8,8 @@
 
 <div class=" snippet-content container-fluid">
 
+<h2>Supprimer la critique</h2>
+
     {#    REVIEW#}
 
     <div class="snippet-card rounded-3 card">
@@ -55,14 +57,16 @@
 
         </div>
     </div>
+
+        <div class="modify-buttons">
+             <a href="{% url 'flux' %}">
+                <button type="button" class="btn-create btn btn-outline-dark">Annuler</button>
+            </a>
+            <button type="button" class="btn-create btn btn-dark" data-bs-toggle="modal" data-bs-target="#deleteModal">Supprimer</button>
+
+        </div>
 </div>
-    <div class="delete-review-buttons container-fluid">
-        <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#deleteModal">Supprimer
-        </button>
-        <a href="{% url 'flux' %}">
-            <button type="button" class="btn btn-outline-dark">Annuler</button>
-        </a>
-    </div>
+
 
     <form action="{% url 'delete-review' review.id %}" method="post">
     {% csrf_token %}
@@ -79,9 +83,7 @@
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" >Annuler</button>
-
-                      <button type="submit" class="btn btn-primary">Confirmer</button>
-                  
+                <button type="submit" class="btn btn-primary">Confirmer</button>
               </div>
             </div>
           </div>
@@ -89,4 +91,5 @@
 
 <!-- MODAL -->
 </form>
+
 {% endblock %}

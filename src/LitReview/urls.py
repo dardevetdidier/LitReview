@@ -21,6 +21,6 @@ from . import views
 
 urlpatterns = [
     path('', include('AppReview.urls')),
-    # path('', views.base, name='base'),
+    path('admin/doc/', include('django.contrib.admindocs.urls')),
     path('admin/', admin.site.urls),
 ]

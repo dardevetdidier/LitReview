@@ -15,8 +15,11 @@ body {
     vertical-align: center;
 }
 
+.navigation i {
+    font-size: 1.2rem;
+}
 .centered {
-    margin: 0 0 0 36%;
+    /*margin: 0 0 0 36%;*/
 }
 
 .navbar-brand {
@@ -97,7 +100,6 @@ body {
 .infos {
     padding: 0;
     margin: 0;
-
     text-align: center;
     font-size: 0.7rem;
 }
@@ -106,7 +108,9 @@ body {
     text-align: center;
     margin: auto;
 }
-
+.connect-btn {
+    margin-top: 10%;
+}
 /*LOGIN*/
 
 .login-title {
@@ -138,6 +142,7 @@ body {
 
 .btn-create {
     margin-top: 2rem;
+    margin-left: 2%;
     padding: 1% 10%;
     float: right;
 }
@@ -154,6 +159,7 @@ body {
 .create-review-title {
     text-align: center;
 }
+
 ul {
     width: 50%;
 }
@@ -192,6 +198,14 @@ li {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     border-radius: 5px;
 }
+.review-body {
+    padding: 3% 3% 2% 3%;
+}
+.text-body {
+    text-align: justify;
+    margin-top: 3%;
+}
+
 .snippet-card h5 {
     font-size: 1.5rem;
     font-weight: 600;
@@ -215,6 +229,9 @@ li {
 .ticket-review-snippet-title {
     color: dimgrey;
 }
+
+/*MODIFY / DELETE*/
+
 .edit-del-buttons {
     text-align: end;
     padding: 1.5% 2%;
@@ -227,6 +244,10 @@ li {
 
 .edit-del-buttons i:hover {
     color: #212529;
+}
+
+.modify-buttons {
+    height: 15vh;
 }
 
 .review-title-card {
@@ -282,4 +303,28 @@ li {
 
 .image-modify {
     margin-bottom: 2%;
+}
+
+/*DELETE*/
+
+.delete-buttons {
+    margin-top: 3%;
+    text-align: center;
+}
+
+.delete-buttons button {
+    margin-right: 3%;
+    width: 10rem;
+}
+
+/*REPLY*/
+
+.reply-title {
+    text-align: center;
+}
+
+/*POSTS*/
+
+.posts-title {
+    padding: 3% 20% 0 20%;
 }

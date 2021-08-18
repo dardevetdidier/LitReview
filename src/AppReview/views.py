@@ -14,6 +14,18 @@ from .forms import TicketForm, ReviewForm, RegisterForm, LoginForm
 
 
 def index(request):
+    """
+    Display an individual form to allows user to login: form: 'forms.LoginForm'
+
+    **Context**
+
+    ``login_form``
+        An instance of  :form: `forms.LoginForm`
+
+    **Template**
+
+    : template: 'AppReview/index.html'
+    """
     login_form = LoginForm
     if request.method == 'POST':
         username = request.POST.get('username')
@@ -29,44 +41,52 @@ def index(request):
 
 
 def register(request):
+    """
+    Display an individual form to allows user to register: form: 'forms.RegisterForm'
+
+    **Context**
+
+    ``register_form``
+        An instance of  :form: `forms.RegisterForm`
+
+    **Template**
+
+    : template: 'AppReview/register.html'
+    """
     if request.method == 'POST':
         register_form = RegisterForm(request.POST)
         if register_form.is_valid():
             register_form.save()
             user = register_form.cleaned_data.get('username')
-            messages.success(request, f'Compte créé avec Succès pour {user}')
+            messages.success(request, f'Compte créé avec succès pour {user}')
 
-            return HttpResponseRedirect(request.path)
+        return HttpResponseRedirect(reverse('flux'))
     else:
         register_form = RegisterForm()
     return render(request, 'AppReview/register.html', {'register_form': register_form})
 
 
 def logout_user(request):
+    """Logout user and redirect to index page."""
+
     logout(request)
     return HttpResponseRedirect(reverse('index'))
 
 
 @login_required(login_url='index')
-def flux(request):
-    reviews = get_reviews(request.user)
-    reviews = reviews.annotate(content_type=Value('REVIEW', CharField()))
-
-    tickets = get_tickets(request.user)
-    tickets = tickets.annotate(content_type=Value('TICKET', CharField()))
-
-    # combine and sort the two types of posts
-    posts = sorted(
-        chain(reviews, tickets),
-        key=lambda post: post.time_created,
-        reverse=True
-    )
-
-    return render(request, 'AppReview/flux.html', {'posts': posts})
-
-
-@login_required(login_url='index')
 def add_ticket(request):
+    """
+        Display an individual form to post a new ticket: form: 'forms.TicketForm'
+
+        **Context**
+
+        ``ticket_form``
+            An instance of  :form: `forms.TicketForm`
+
+        **Template**
+
+        : template: 'AppReview/add_ticket.html'
+    """
     if request.method == 'POST':
         print(request.user)
         ticket_form = TicketForm(request.POST, request.FILES)
@@ -84,22 +104,32 @@ def add_ticket(request):
 
 @login_required(login_url='index')
 def add_review(request):
-    stars = []
+    """
+        Display 2 forms to add a new review
+        : ticket_form: views.add_ticket()
+        : review_form: `forms.ReviewForm`
+
+        **Context**
+
+        ``review_form``
+            An instance of  :form: `forms.ReviewForm`
+        ``ticket_form``
+            An instance of  :form: `forms.TicketForm`
+
+        **Template**
+
+        : template: 'AppReview/add_review.html'
+    """
     ticket_form = TicketForm()
 
     # Use add_ticket function
     add_ticket(request)
+
     if request.method == 'POST':
-
-        print(f"methode = {request.method}")
-
         review_form = ReviewForm(request.POST)
-
         ticket = Ticket.objects.last()
 
         if review_form.is_valid():
-            # print(review_form.cleaned_data)
-            # print("review_form valide")
             review = review_form.save(commit=False)
             review.ticket = ticket
             review.user = request.user
@@ -111,8 +141,7 @@ def add_review(request):
         review_form = ReviewForm()
 
     return render(request, 'AppReview/add_review.html', {"review_form": review_form,
-                                                         "ticket_form": ticket_form,
-                                                         })
+                                                         "ticket_form": ticket_form})
 
 
 @login_required(login_url='index')
@@ -131,7 +160,8 @@ def reply_ticket(request, pk):
     else:
         review_form = ReviewForm()
 
-    return render(request, 'AppReview/reply_ticket.html', {"reply_form": review_form})
+    return render(request, 'AppReview/reply_ticket.html', {"reply_form": review_form,
+                                                           "ticket": ticket})
 
 
 @login_required(login_url='index')
@@ -170,7 +200,6 @@ def modify_ticket(request, pk):
 
 @login_required(login_url='index')
 def delete_review(request, pk):
-    print(request)
     review = Review.objects.get(id=pk)
     if request.method == 'POST':
         review.delete()
@@ -181,5 +210,51 @@ def delete_review(request, pk):
 
 @login_required(login_url='index')
 def delete_ticket(request, pk):
-    pass
+    ticket = Ticket.objects.get(id=pk)
+    if request.method == 'POST':
+        ticket.delete()
+        return HttpResponseRedirect(reverse('flux'))
+
+    return render(request, 'AppReview/delete_ticket.html', {'ticket': ticket})
+
+
+@login_required(login_url='index')
+def flux(request):
+    print(request.user)
+    reviews = get_reviews(request.user)
+    # reviews = Review.objects.filter(user=request.user)
+    reviews = reviews.annotate(content_type=Value('REVIEW', CharField()))
+
+    tickets = get_tickets(request.user)
+    # tickets = Ticket.objects.filter(user=request.user)
+    tickets = tickets.annotate(content_type=Value('TICKET', CharField()))
+
+    # combine and sort the two types of posts
+    posts = sorted(
+        chain(reviews, tickets),
+        key=lambda post: post.time_created,
+        reverse=True
+    )
+
+    return render(request, 'AppReview/flux.html', {'posts': posts})
+
+
+@login_required(login_url='index')
+def user_posts(request):
+    # reviews = get_reviews(request.user)
+    reviews = Review.objects.filter(user=request.user)
+    reviews = reviews.annotate(content_type=Value('REVIEW', CharField()))
+
+    # tickets = get_tickets(request.user)
+    tickets = Ticket.objects.filter(user=request.user)
+    tickets = tickets.annotate(content_type=Value('TICKET', CharField()))
+
+    # combine and sort the two types of posts
+    posts = sorted(
+        chain(reviews, tickets),
+        key=lambda post: post.time_created,
+        reverse=True
+    )
+
+    return render(request, 'AppReview/flux.html', {'posts': posts})
 

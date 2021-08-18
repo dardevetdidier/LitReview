@@ -30,7 +30,6 @@
                     <a class="navbar-brand" href="{% url 'flux' %}">LITReview</a>
                     
                     {% if user.is_authenticated %}
-                    
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                             <span class="navbar-toggler-icon"></span>
                     </button>
@@ -39,9 +38,9 @@
                         
                         <ul class="menu navbar-nav ms-auto">
                             <li><a class="nav-link" href="{% url 'flux' %}">Flux</a></li>
-                            <li><a class="nav-link" href="#">Posts</a></li>
+                            <li><a class="nav-link" href="{% url 'posts' %}">Posts</a></li>
                             <li><a class="nav-link" href="#">Abonnements</a></li>
-                            <li><a class="nav-link" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop" >Se déconnecter</a></li>
+                            <li><a class="nav-link" type="button" title="Se déconnecter" data-bs-toggle="modal" data-bs-target="#staticBackdrop" ><i class="fas fa-power-off"></i></a></li>
                         </ul>
                     </div>
                     

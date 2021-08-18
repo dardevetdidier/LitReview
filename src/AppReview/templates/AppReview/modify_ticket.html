@@ -4,7 +4,7 @@
 
 {% block content %}
 
-<h1>Modifier Ticket</h1>
+
 
     <form method="POST" enctype="multipart/form-data">
     {% csrf_token %}
@@ -35,9 +35,13 @@
                 {{ modify_ticket_form.image }}
             </div>
         </div>
-
-        <button type="button" class="btn-create btn btn-success" data-bs-toggle="modal" data-bs-target="#modifyModal">Modifier</button>
-
+        <div class="modify-buttons">
+            <a href="{% url 'flux' %}">
+                <button type="button" class="btn-create btn btn-outline-dark">annuler</button>
+            </a>
+            <button type="button" class="btn-create btn btn-dark" data-bs-toggle="modal"
+                    data-bs-target="#modifyModal">Modifier</button>
+        </div>
     </div>
 
 

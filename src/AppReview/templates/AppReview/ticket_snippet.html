@@ -15,7 +15,7 @@
                     <div class="edit-del-buttons col-lg-6">
                         <a href="{% url 'modify-ticket' post.id %}" class="card-link" title="Modifier"><i
                                 class="fas fa-edit"></i></a>
-                        <a href="#" class="card-link" title="Supprimer"><i class="fas fa-trash-alt"></i></a>
+                        <a href="{% url 'delete-ticket' post.id %}" class="card-link" title="Supprimer"><i class="fas fa-trash-alt"></i></a>
                     </div>
                 {% endif %}
             </div>
@@ -40,11 +40,11 @@
                 {% endif %}
             </div>
 
-                {% if post.review.ticket != post.title %}
+{#                {% if post.review.ticket != post.title %}#}
                     <div class="answer-button">
-                        <a href="#" type="button" class="btn btn-dark btn-lg">Répondre</a>
+                        <a href="{% url 'reply-ticket' post.id %}" type="button" class="btn btn-dark btn-lg">Répondre</a>
                     </div>
-                {% endif %}
+{#                {% endif %}#}
 
         </div>
     </div>
