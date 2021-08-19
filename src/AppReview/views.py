@@ -41,6 +41,18 @@ def index(request):
 
 
 def register(request):
+    """
+    Display an individual form to allows user to register: form: 'forms.RegisterForm'
+
+    **Context**
+
+    ``register_form``
+        An instance of  :form: `forms.RegisterForm`
+
+    **Template**
+
+    : template: 'AppReview/register.html'
+    """
     if request.method == 'POST':
         register_form = RegisterForm(request.POST)
         if register_form.is_valid():
@@ -55,12 +67,26 @@ def register(request):
 
 
 def logout_user(request):
+    """Logout user and redirect to index page."""
+
     logout(request)
     return HttpResponseRedirect(reverse('index'))
 
 
 @login_required(login_url='index')
 def add_ticket(request):
+    """
+        Display an individual form to post a new ticket: form: 'forms.TicketForm'
+
+        **Context**
+
+        ``ticket_form``
+            An instance of  :form: `forms.TicketForm`
+
+        **Template**
+
+        : template: 'AppReview/add_ticket.html'
+    """
     if request.method == 'POST':
         print(request.user)
         ticket_form = TicketForm(request.POST, request.FILES)
@@ -78,6 +104,22 @@ def add_ticket(request):
 
 @login_required(login_url='index')
 def add_review(request):
+    """
+        Display 2 forms to add a new review
+        : ticket_form: views.add_ticket()
+        : review_form: `forms.ReviewForm`
+
+        **Context**
+
+        ``review_form``
+            An instance of  :form: `forms.ReviewForm`
+        ``ticket_form``
+            An instance of  :form: `forms.TicketForm`
+
+        **Template**
+
+        : template: 'AppReview/add_review.html'
+    """
     ticket_form = TicketForm()
 
     # Use add_ticket function
@@ -185,7 +227,7 @@ def delete_ticket(request, pk):
 
 @login_required(login_url='index')
 def flux(request):
-    print(request.user)
+
     reviews = get_reviews(request.user)
     # reviews = Review.objects.filter(user=request.user)
     reviews = reviews.annotate(content_type=Value('REVIEW', CharField()))
@@ -206,6 +248,7 @@ def flux(request):
 
 @login_required(login_url='index')
 def user_posts(request):
+
     # reviews = get_reviews(request.user)
     reviews = Review.objects.filter(user=request.user)
     reviews = reviews.annotate(content_type=Value('REVIEW', CharField()))
@@ -221,5 +264,6 @@ def user_posts(request):
         reverse=True
     )
 
-    return render(request, 'AppReview/posts.html', {'posts': posts})
+    return render(request, 'AppReview/posts.html', {'posts': posts,
+                                                    })
 

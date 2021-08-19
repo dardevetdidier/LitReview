@@ -222,10 +222,15 @@ li {
     font-size: 0.8rem;
 }
 
-.card-header-snippet {
+.card-header-review-snippet, .card-header-ticket-snippet {
     font-family: 'Ubuntu', sans-serif;
     vertical-align: center;
+    padding: 1% 3%;
 }
+.card-header-ticket-snippet {
+    background-color: #d5ede1;
+}
+
 .ticket-review-snippet-title {
     color: dimgrey;
 }
@@ -261,9 +266,9 @@ li {
     padding: 0.5% 10%;
 
 }
-.note-review {
-    font-size: 1.2rem;
-}
+/*.note-review {*/
+/*    font-size: 1.2rem;*/
+/*}*/
 /*.snippet-body {*/
 /*    display: flex;*/
 /*    justify-content: flex-start;*/
@@ -326,9 +331,16 @@ li {
 /*POSTS*/
 
 .posts-container-title {
-    padding: 0% 20% 0 20%;
+    padding: 2% 20% 0 20%;
 }
 
 .posts-title {
     margin: 0;
+}
+
+.stars {
+
+}
+.checked {
+    color: orange;
 }

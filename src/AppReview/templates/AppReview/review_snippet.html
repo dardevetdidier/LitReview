@@ -6,7 +6,7 @@
 
     <div class="snippet-card rounded-3 card">
 
-        <div class="card-header-snippet card-header vh-15">
+        <div class="card-header-review-snippet card-header vh-15">
             <div class="row">
                 <div class="header-title-time col-lg-6">
                     <p class="snippet-title card-title">{{ post.user }} a posté une critique</p>
@@ -24,17 +24,26 @@
 
         <div class="review-body card-body">
             <h5 class="review-title-card card-title">{{ post.headline }}</h5>
-            <h6 class="note-review card-subtitle mb-2 text-muted">Note : {{ post.rating }} / 5</h6>
-{#            {% for i in post.rating %}#}
-{#            <i class="fas fa-star"></i>#}
-{#            {% endfor %}#}
+
+
+            <span class="stars">
+            {% for i in post.stars_checked %}
+                <i class="fas fa-star checked"></i>
+            {% endfor %}
+
+            {% for i in post.stars_unchecked %}
+                <i class="fas fa-star"></i>
+            {% endfor %}
+            </span>
+
+
             <p class="text-body card-text">{{ post.body }}</p>
         </div>
  <hr>
         {#    TICKET#}
 
         <div class="ticket-in-review card">
-            <div class="card-header-snippet card-header vh-15">
+            <div class="card-header-ticket-snippet card-header vh-15">
                 <p class="ticket-review-snippet-title ">Ticket de {{ post.ticket.user }} posté le {{ post.ticket.time_created }}</p>
 
             </div>

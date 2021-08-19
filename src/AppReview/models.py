@@ -32,6 +32,26 @@ class Review(models.Model):
     def __str__(self):
         return self.ticket.title
 
+    @property
+    def stars_checked(self):
+        """
+        A list used to display the number of checked rating stars
+
+        :return list: A list of n elements (n=rating) used to display checked rating stars
+        """
+        stars_checked = list(range(self.rating))
+        return stars_checked
+
+    def stars_unchecked(self):
+        """
+        A list used to display the number of unchecked rating stars
+
+        :return list: A list of n elements (n = 5 - rating)
+        """
+        remain = 5 - self.rating
+        stars_unchecked = list(range(remain))
+        return stars_unchecked
+
 
 class UserFollows(models.Model):
     user = models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='following')
@@ -45,10 +65,10 @@ class UserFollows(models.Model):
 
 
 def get_reviews(request):
-    """returns a queryset of reviews"""
+    """returns a queryset of all reviews"""
     return Review.objects.all()
 
 
 def get_tickets(request):
-    """returns a queryset of tickets"""
+    """returns a queryset of all tickets"""
     return Ticket.objects.all()
