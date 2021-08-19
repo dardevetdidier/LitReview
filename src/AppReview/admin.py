@@ -6,7 +6,13 @@ from .models import Ticket, Review, UserFollows
 
 @admin.register(Ticket)
 class TicketAdmin(admin.ModelAdmin):
-    pass
+    list_display = (
+        "title",
+        "user",
+        "time_created",
+        "reply",
+    )
+    empty_value_display = "Inconnu"
 
 
 @admin.register(Review)

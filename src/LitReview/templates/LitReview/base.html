@@ -40,7 +40,7 @@
                             <li><a class="nav-link" href="{% url 'flux' %}">Flux</a></li>
                             <li><a class="nav-link" href="{% url 'posts' %}">Posts</a></li>
                             <li><a class="nav-link" href="#">Abonnements</a></li>
-                            <li><a class="nav-link" type="button" title="Se déconnecter" data-bs-toggle="modal" data-bs-target="#staticBackdrop" ><i class="fas fa-power-off"></i></a></li>
+                            <li><a class="nav-link" type="button" title="Se déconnecter" data-bs-toggle="modal" data-bs-target="#staticBackdrop" ><i class="fas fa-power-off"></i> {{ user }}</a></li>
                         </ul>
                     </div>
                     

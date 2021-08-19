@@ -15,7 +15,7 @@ from .forms import TicketForm, ReviewForm, RegisterForm, LoginForm
 
 def index(request):
     """
-    Display an individual form to allows user to login: form: 'forms.LoginForm'
+    Display an individual form : form: 'forms.LoginForm'
 
     **Context**
 
@@ -41,18 +41,6 @@ def index(request):
 
 
 def register(request):
-    """
-    Display an individual form to allows user to register: form: 'forms.RegisterForm'
-
-    **Context**
-
-    ``register_form``
-        An instance of  :form: `forms.RegisterForm`
-
-    **Template**
-
-    : template: 'AppReview/register.html'
-    """
     if request.method == 'POST':
         register_form = RegisterForm(request.POST)
         if register_form.is_valid():
@@ -60,33 +48,19 @@ def register(request):
             user = register_form.cleaned_data.get('username')
             messages.success(request, f'Compte créé avec succès pour {user}')
 
-        return HttpResponseRedirect(reverse('flux'))
+        return HttpResponseRedirect(reverse('index'))
     else:
         register_form = RegisterForm()
     return render(request, 'AppReview/register.html', {'register_form': register_form})
 
 
 def logout_user(request):
-    """Logout user and redirect to index page."""
-
     logout(request)
     return HttpResponseRedirect(reverse('index'))
 
 
 @login_required(login_url='index')
 def add_ticket(request):
-    """
-        Display an individual form to post a new ticket: form: 'forms.TicketForm'
-
-        **Context**
-
-        ``ticket_form``
-            An instance of  :form: `forms.TicketForm`
-
-        **Template**
-
-        : template: 'AppReview/add_ticket.html'
-    """
     if request.method == 'POST':
         print(request.user)
         ticket_form = TicketForm(request.POST, request.FILES)
@@ -95,7 +69,7 @@ def add_ticket(request):
             ticket = ticket_form.save(commit=False)
             ticket.user = request.user
             ticket.save()
-        return HttpResponseRedirect(request.path)
+        return HttpResponseRedirect(reverse('flux'))
     else:
         ticket_form = TicketForm(initial={"user": request.user})
 
@@ -104,32 +78,21 @@ def add_ticket(request):
 
 @login_required(login_url='index')
 def add_review(request):
-    """
-        Display 2 forms to add a new review
-        : ticket_form: views.add_ticket()
-        : review_form: `forms.ReviewForm`
-
-        **Context**
-
-        ``review_form``
-            An instance of  :form: `forms.ReviewForm`
-        ``ticket_form``
-            An instance of  :form: `forms.TicketForm`
-
-        **Template**
-
-        : template: 'AppReview/add_review.html'
-    """
     ticket_form = TicketForm()
 
     # Use add_ticket function
     add_ticket(request)
-
     if request.method == 'POST':
+
+        print(f"methode = {request.method}")
+
         review_form = ReviewForm(request.POST)
+
         ticket = Ticket.objects.last()
 
         if review_form.is_valid():
+            # print(review_form.cleaned_data)
+            # print("review_form valide")
             review = review_form.save(commit=False)
             review.ticket = ticket
             review.user = request.user
@@ -154,6 +117,8 @@ def reply_ticket(request, pk):
             reply = review_form.save(commit=False)
             reply.user = request.user
             reply.ticket = ticket
+            ticket.reply = True
+            ticket.save()
             reply.save()
         return HttpResponseRedirect(reverse('flux'))
 
@@ -256,5 +221,5 @@ def user_posts(request):
         reverse=True
     )
 
-    return render(request, 'AppReview/flux.html', {'posts': posts})
+    return render(request, 'AppReview/posts.html', {'posts': posts})
 

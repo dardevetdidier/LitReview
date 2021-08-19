@@ -55,8 +55,10 @@
                 </div>
 
 
-                {% if not post.ticket %}
-                    <a href="{% url 'reply-ticket' post.id %}">Répondre</a>
+                {% if post.ticket.title == ticket.title %}
+                    <div class="answer-button">
+                        <a href="{% url 'reply-ticket' post.id %}" type="button" class="btn btn-dark btn-lg">Répondre</a>
+                    </div>
                 {% endif %}
 
             </div>

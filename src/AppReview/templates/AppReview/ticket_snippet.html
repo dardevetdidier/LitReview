@@ -40,11 +40,11 @@
                 {% endif %}
             </div>
 
-{#                {% if post.review.ticket != post.title %}#}
+                {% if post.reply == False %}
                     <div class="answer-button">
                         <a href="{% url 'reply-ticket' post.id %}" type="button" class="btn btn-dark btn-lg">Répondre</a>
                     </div>
-{#                {% endif %}#}
+                {% endif %}
 
         </div>
     </div>

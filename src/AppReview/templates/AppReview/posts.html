@@ -4,8 +4,24 @@
 
 
 {% block content %}
-    <div class="posts-title container-fluid">
-        <h2 class="create-title">Mes posts</h2>
+
+    <div class="flux-buttons container-fluid">
+
+        <div class="buttons-row row">
+            <div class="flux-button-left col-lg-6">
+                <a href="{% url 'add-ticket' %}" title="Demander une critique" type="button"
+                   class="btn btn-dark btn-lg">Créer un ticket</a>
+            </div>
+            <div class="flux-button-right col-lg-6">
+                <a href="{% url 'add-review' %}" type="button" class="btn btn-outline-dark btn-lg ">Créer une
+                    critique</a>
+            </div>
+        </div>
+
+    </div>
+    <hr>
+    <div class="posts-container-title container-fluid">
+        <h2 class="posts-title">Mes posts</h2>
     </div>
     {% for post in posts %}
         {% if post.content_type == 'TICKET' %}

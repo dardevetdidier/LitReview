@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% block title %}<title>Ajouter critique</title>  {% endblock %}
+
 {% block content %}
 
     <form method="POST" enctype="multipart/form-data">
@@ -62,7 +64,7 @@
                     {{ review_form.headline }}
                 </div>
 
-{#
+
                     <div class="mb-3 ">
                 <label class="form-label" for="rating">Note</label>
                         {{ review_form.rating }}
