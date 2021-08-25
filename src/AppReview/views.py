@@ -156,6 +156,22 @@ def add_review(request):
 
 @login_required(login_url='index')
 def reply_ticket(request, pk):
+    """
+    Display the ticket which attempts response and  the review form to reply ticket
+        : ticket: Ticket()
+        : review_form: `forms.ReviewForm`
+
+        **Context**
+
+        ``review_form``
+            An instance of  :form: `forms.ReviewForm`
+        ``ticket``
+            An instance of  :object instance: `models.Ticket`
+
+        **Template**
+
+        : template: 'AppReview/reply_ticket.html'
+    """
     ticket = get_object_or_404(Ticket, id=pk)
     # print(ticket)
     if request.method == 'POST':
@@ -178,6 +194,22 @@ def reply_ticket(request, pk):
 
 @login_required(login_url='index')
 def modify_review(request, pk):
+    """
+       Get the instance of the review, display the form of this instance with pre-filled fields to allows modifying
+           : review: Review()
+           : review_form: `forms.ReviewForm`
+
+           **Context**
+
+           ``modify_review_form``
+               An instance of  :form: `forms.ReviewForm`
+           ``review``
+               An instance of  :object instance: `models.Review`
+
+           **Template**
+
+           : template: 'AppReview/modify_review.html'
+       """
     review = get_object_or_404(Review, id=pk)
     modify_review_form = ReviewForm(instance=review)
 
@@ -195,6 +227,22 @@ def modify_review(request, pk):
 
 @login_required(login_url='index')
 def modify_ticket(request, pk):
+    """
+           Get the instance of the ticket, display the form of this instance with pre-filled fields to allows modifying
+               : ticket: Ticket()
+               : ticket_form: `forms.TicketForm`
+
+               **Context**
+
+               ``modify_ticket_form``
+                   An instance of  :form: `forms.TicketForm`
+               ``ticket``
+                   An instance of  :object instance: `models.Ticket`
+
+               **Template**
+
+               : template: 'AppReview/modify_ticket.html'
+           """
     ticket = get_object_or_404(Ticket, id=pk)
     modify_ticket_form = TicketForm(instance=ticket)
 
@@ -212,6 +260,21 @@ def modify_ticket(request, pk):
 
 @login_required(login_url='index')
 def delete_review(request, pk):
+    """
+       Get the instance of the review, display it to confirm deleting.
+       Change status of ticket.reply to False and delete the review.
+
+           : review: Review()
+
+           **Context**
+
+           ``review``
+               An instance of  :object instance: `models.Review`
+
+           **Template**
+
+           : template: 'AppReview/delete_review.html'
+       """
     review = get_object_or_404(Review, id=pk)
 
     if request.method == 'POST':
@@ -226,6 +289,20 @@ def delete_review(request, pk):
 
 @login_required(login_url='index')
 def delete_ticket(request, pk):
+    """
+       Get the instance of the ticket, display it to confirm deleting.
+
+           : ticket: Ticket()
+
+           **Context**
+
+           ``ticket``
+               An instance of  :object instance: `models.Ticket`
+
+           **Template**
+
+           : template: 'AppReview/delete_ticket.html'
+       """
     ticket = get_object_or_404(Ticket, id=pk)
 
     if request.method == 'POST':
@@ -237,13 +314,24 @@ def delete_ticket(request, pk):
 
 @login_required(login_url='index')
 def flux(request):
+    """
+       Displays all tickets and reviews sorted by published date
+           : reviews: a list of all reviews
+           : tickets: a list of all tickets
 
+           **Context**
+
+           ``posts``
+               a list of tuples of tickets and reviews  :list: (`reviews`, `tickets`)
+
+           **Template**
+
+           : template: 'AppReview/flux.html'
+   """
     reviews = get_reviews(request.user)
-    # reviews = Review.objects.filter(user=request.user)
     reviews = reviews.annotate(content_type=Value('REVIEW', CharField()))
 
     tickets = get_tickets(request.user)
-    # tickets = Ticket.objects.filter(user=request.user)
     tickets = tickets.annotate(content_type=Value('TICKET', CharField()))
 
     # combine and sort the two types of posts
@@ -258,12 +346,23 @@ def flux(request):
 
 @login_required(login_url='index')
 def user_posts(request):
+    """
+       Displays all tickets and reviews of register user sorted by published date
+           : reviews: a list of all reviews
+           : tickets: a list of all tickets
 
-    # reviews = get_reviews(request.user)
+           **Context**
+
+           ``posts``
+               a list of tuples of tickets and reviews  :list: (`reviews`, `tickets`)
+
+           **Template**
+
+           : template: 'AppReview/flux.html'
+   """
     reviews = Review.objects.filter(user=request.user)
     reviews = reviews.annotate(content_type=Value('REVIEW', CharField()))
 
-    # tickets = get_tickets(request.user)
     tickets = Ticket.objects.filter(user=request.user)
     tickets = tickets.annotate(content_type=Value('TICKET', CharField()))
 
@@ -277,7 +376,27 @@ def user_posts(request):
     return render(request, 'AppReview/posts.html', {'posts': posts})
 
 
+@login_required(login_url='index')
 def subscription(request):
+    """
+       Creates an instance of UserFollows object and render subscription.html
+           : subscription_form: form: an instance of SubscriptionForm()
+           : user: register user
+           : usernames: a list of usernames matching to POST request
+           : followed: an instance of User object which username matches to POST request
+
+           **Context**
+
+           ``subscription_form``
+               an instance of  :form: `forms.Subccription_form`
+
+            ``all_follows``
+                a list of instances: list: all Userfollows() instances
+
+           **Template**
+
+           : template: 'AppReview/subscription.html'
+   """
     if request.method == 'POST':
         print(request.POST)
         user = request.user
@@ -302,14 +421,19 @@ def subscription(request):
         subscription_form = SubscriptionForm()
 
     all_follows = UserFollows.objects.all()
-    # follow = UserFollows()
 
     return render(request, 'AppReview/subscriptions.html', {'subscription_form': subscription_form,
-                                                            'all_follows': all_follows,
-                                                            })
+                                                            'all_follows': all_follows})
 
 
+@login_required(login_url='index')
 def unsubscribe(request, pk):
+    """
+    Delete instance of Userfollows()
+
+    :param pk: userfollows id
+    :return: redirection to subscription page
+    """
     follow = get_object_or_404(UserFollows, id=pk)
     follow.delete()
 
