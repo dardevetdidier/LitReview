@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{% block title %}<title>LitReview - Abonnements</title>  {% endblock %}
+
+{% block content %}
+
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <div class="subs-content container-fluid">
+            <h3 class="subscription-title">Suivre un utilisateur</h3>
+
+            <div class="subscription-form ">
+                <div class="mb-3">
+                    {{ subscription_form.user }}
+                </div>
+                <button type="submit" class="btn-subscibe btn btn-dark">Envoyer</button>
+            </div>
+
+            {% if messages %}
+                <div class="container-fluid">
+                    {% for message in messages %}
+                    <p class="messages-info-subs"{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+    </form>
+
+{# -----------------   ABONNEMENTS -----------------#}
+
+    <div class="subs-content container-fluid">
+
+        <h3 class="subscription-title">Abonnements</h3>
+
+        <div class="subscription-form ">
+
+                {% for follow in all_follows %}
+                {% if user.username == follow.user.username %}
+                    <div class="abonnements">
+                        {{ follow.followed_user.username }}
+                        <a href="{% url 'unsubscribe' follow.id %}"><button type="button" class="btn-unsubs btn btn-dark">Désabonner</button></a>
+                    </div>
+                {% endif %}
+
+            {% endfor %}
+            </div>
+        </div>
+
+
+    </div>
+{#---------------------- ABONNES ------------------------- #}
+
+    <div class="subs-content container-fluid">
+
+            <h3 class="subscription-title">Abonnés</h3>
+
+            <div class="subscription-form ">
+
+                    {% for follow in all_follows %}
+                        {% if user.username == follow.followed_user.username %}
+                            <div class="abonnements">
+                            {{ follow.user.username }}
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+
+            </div>
+        </div>
+
+{% endblock %}
+

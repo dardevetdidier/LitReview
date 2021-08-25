@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
-from .models import Ticket, Review
+from .models import Ticket, Review, UserFollows
 
 
 class RegisterForm(UserCreationForm):
@@ -61,8 +61,6 @@ class TicketForm(forms.ModelForm):
 
 
 class ReviewForm(forms.ModelForm):
-
-
     class Meta:
         CHOICES = [('1', 1), ('2', 2), ('3', 3), ('4', 4), ('5', 5)]
         model = Review
@@ -80,4 +78,25 @@ class ReviewForm(forms.ModelForm):
             'headline': forms.TextInput(attrs={'class': 'form-control'}),
             'rating': forms.RadioSelect(choices=CHOICES, attrs={'class': 'form-check-inline radio-button'}),
             'body': forms.Textarea(attrs={'class': 'form-control'}),
+        }
+
+
+class SubscriptionForm(forms.ModelForm):
+    class Meta:
+        model = UserFollows
+
+        fields = [
+
+            'user'
+        ]
+
+        labels = {
+
+            'user': ''
+        }
+
+        widgets = {
+            'user': forms.TextInput(attrs={'class': 'form-control',
+                                           'placeholder': "Nom d\'utilisateur",
+                                           })
         }

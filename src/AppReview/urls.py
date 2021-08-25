@@ -18,6 +18,8 @@ urlpatterns = [
     path('delete-review/<str:pk>/', views.delete_review, name='delete-review'),
     path('delete-ticket/<str:pk>/', views.delete_ticket, name='delete-ticket'),
     path('posts/', views.user_posts, name='posts'),
+    path('subscriptions/', views.subscription, name='subscription'),
+    path('unsubscribe/<str:pk>/', views.unsubscribe, name='unsubscribe'),
 ]
 
 

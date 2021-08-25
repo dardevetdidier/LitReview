@@ -7,6 +7,7 @@ from .models import Ticket, Review, UserFollows
 @admin.register(Ticket)
 class TicketAdmin(admin.ModelAdmin):
     list_display = (
+        "pk",
         "title",
         "user",
         "time_created",
@@ -18,6 +19,7 @@ class TicketAdmin(admin.ModelAdmin):
 @admin.register(Review)
 class ReviewAdmin(admin.ModelAdmin):
     list_display = (
+        "pk",
         "ticket",
         "user",
         "rating",
@@ -28,6 +30,10 @@ class ReviewAdmin(admin.ModelAdmin):
 
 @admin.register(UserFollows)
 class UserFollowsAdmin(admin.ModelAdmin):
-    pass
+    list_display = (
+        'user',
+        'followed_user'
+    )
+    empty_value_display = "Inconnu"
 
 

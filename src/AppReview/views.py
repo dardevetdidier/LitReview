@@ -1,16 +1,16 @@
 from itertools import chain
-
+from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import HttpResponseRedirect
+from django.shortcuts import HttpResponseRedirect, get_object_or_404, redirect
 from django.urls import reverse
 from django.shortcuts import render
 from django.db.models import CharField, Value
 from django.contrib import messages
 from django.utils import timezone
 
-from AppReview.models import Review, Ticket, get_reviews, get_tickets
-from .forms import TicketForm, ReviewForm, RegisterForm, LoginForm
+from AppReview.models import Review, Ticket, get_reviews, get_tickets, UserFollows
+from .forms import TicketForm, ReviewForm, RegisterForm, LoginForm, SubscriptionForm
 
 
 def index(request):
@@ -26,7 +26,7 @@ def index(request):
 
     : template: 'AppReview/index.html'
     """
-    login_form = LoginForm
+    login_form = LoginForm()
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
@@ -105,7 +105,7 @@ def add_ticket(request):
 @login_required(login_url='index')
 def add_review(request):
     """
-        Display 2 forms to add a new review
+        Display 2 forms to add a new review and a new ticket
         : ticket_form: views.add_ticket()
         : review_form: `forms.ReviewForm`
 
@@ -124,6 +124,7 @@ def add_review(request):
 
     # Use add_ticket function
     add_ticket(request)
+
     if request.method == 'POST':
 
         print(f"methode = {request.method}")
@@ -131,13 +132,17 @@ def add_review(request):
         review_form = ReviewForm(request.POST)
 
         ticket = Ticket.objects.last()
+        # ticket.reply = True
 
         if review_form.is_valid():
             # print(review_form.cleaned_data)
             # print("review_form valide")
             review = review_form.save(commit=False)
+            ticket.reply = True
             review.ticket = ticket
+
             review.user = request.user
+            ticket.save()
             review.save()
 
         return HttpResponseRedirect(reverse('flux'))
@@ -151,7 +156,7 @@ def add_review(request):
 
 @login_required(login_url='index')
 def reply_ticket(request, pk):
-    ticket = Ticket.objects.get(id=pk)
+    ticket = get_object_or_404(Ticket, id=pk)
     # print(ticket)
     if request.method == 'POST':
         review_form = ReviewForm(request.POST)
@@ -173,7 +178,7 @@ def reply_ticket(request, pk):
 
 @login_required(login_url='index')
 def modify_review(request, pk):
-    review = Review.objects.get(id=pk)
+    review = get_object_or_404(Review, id=pk)
     modify_review_form = ReviewForm(instance=review)
 
     if request.method == 'POST':
@@ -190,7 +195,7 @@ def modify_review(request, pk):
 
 @login_required(login_url='index')
 def modify_ticket(request, pk):
-    ticket = Ticket.objects.get(id=pk)
+    ticket = get_object_or_404(Ticket, id=pk)
     modify_ticket_form = TicketForm(instance=ticket)
 
     if request.method == 'POST':
@@ -207,9 +212,13 @@ def modify_ticket(request, pk):
 
 @login_required(login_url='index')
 def delete_review(request, pk):
-    review = Review.objects.get(id=pk)
+    review = get_object_or_404(Review, id=pk)
+
     if request.method == 'POST':
+        review.ticket.reply = False
+        review.ticket.save()
         review.delete()
+
         return HttpResponseRedirect(reverse('flux'))
 
     return render(request, 'AppReview/delete_review.html', {'review': review})
@@ -217,7 +226,8 @@ def delete_review(request, pk):
 
 @login_required(login_url='index')
 def delete_ticket(request, pk):
-    ticket = Ticket.objects.get(id=pk)
+    ticket = get_object_or_404(Ticket, id=pk)
+
     if request.method == 'POST':
         ticket.delete()
         return HttpResponseRedirect(reverse('flux'))
@@ -264,6 +274,46 @@ def user_posts(request):
         reverse=True
     )
 
-    return render(request, 'AppReview/posts.html', {'posts': posts,
-                                                    })
+    return render(request, 'AppReview/posts.html', {'posts': posts})
+
+
+def subscription(request):
+    if request.method == 'POST':
+        print(request.POST)
+        user = request.user
+        usernames = User.objects.filter(username=request.POST['user'])
+
+        # test if username exists in db
+        if usernames:
+            followed = User.objects.get(username=request.POST['user'])
+        else:
+            messages.info(request, "l'utilisateur n'existe pas")
+            return HttpResponseRedirect(request.path)
+
+        # test if user tries to follow himself
+        if user.pk == followed.pk:
+            messages.info(request, "Vous ne pouvez pas suivre cet utilisateur")
+        else:
+            UserFollows.objects.create(user=user, followed_user=followed)
+
+        return HttpResponseRedirect(request.path)
+
+    else:
+        subscription_form = SubscriptionForm()
+
+    all_follows = UserFollows.objects.all()
+    # follow = UserFollows()
+
+    return render(request, 'AppReview/subscriptions.html', {'subscription_form': subscription_form,
+                                                            'all_follows': all_follows,
+                                                            })
+
+
+def unsubscribe(request, pk):
+    follow = get_object_or_404(UserFollows, id=pk)
+    follow.delete()
+
+    return HttpResponseRedirect(reverse('subscription'))
+
+
 
