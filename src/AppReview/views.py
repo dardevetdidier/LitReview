@@ -2,7 +2,7 @@ from itertools import chain
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import HttpResponseRedirect, get_object_or_404, redirect
+from django.shortcuts import HttpResponseRedirect, get_object_or_404
 from django.urls import reverse
 from django.shortcuts import render
 from django.db.models import CharField, Value
@@ -132,7 +132,6 @@ def add_review(request):
         review_form = ReviewForm(request.POST)
 
         ticket = Ticket.objects.last()
-        # ticket.reply = True
 
         if review_form.is_valid():
             # print(review_form.cleaned_data)
@@ -428,16 +427,8 @@ def subscription(request):
 
 @login_required(login_url='index')
 def unsubscribe(request, pk):
-    """
-    Delete instance of Userfollows()
-
-    :param pk: userfollows id
-    :return: redirection to subscription page
-    """
+    """Delete instance of Userfollows()"""
     follow = get_object_or_404(UserFollows, id=pk)
     follow.delete()
 
     return HttpResponseRedirect(reverse('subscription'))
-
-
-
