@@ -2,7 +2,7 @@
 
 LItReview est une application web permettant à une communauté de passionnés de lecture de demander, rédiger et partager des critiques de livres ou d'articles. 
 
-LitReview est actuellemnt en version 'Produit Viable Minimun' et ne reflète donc pas la totalité des fonctionnalités de la version définitive.
+LitReview est actuellemnt en version 'Produit Viable Minimum' et ne reflète donc pas la totalité des fonctionnalités de la version définitive.
 ____________________________
 
 ### TECHNOLOGIES 
@@ -39,10 +39,10 @@ ____________________________
 
 Pour une première utilisation vous devez créer un compte. Pour cela, cliquez sur "S'inscrire" depuis la page d'accueil puis remplissez les champs du formulaire.
 
-Une fois enregistré l'utilisateur doit se connecter depuis la page d'accueil avec son nom d'utilisateur et son mot de passe, créés lors de l'inscription.
+Une fois enregistré, l'utilisateur doit se connecter depuis la page d'accueil avec son nom d'utilisateur et son mot de passe, créés lors de l'inscription.
 
 Une fois connecté l'utilisateur peut :
-* Consulter le flux de posts de tous les utilisateur (Flux)
+* Consulter le flux de posts de tous les utilisateurs (Flux)
 * Créer un ticket (demande de critique)
 * Créer une critique. Pour cela il créera un ticket et y répondra dans un seul formulaire de création
 * Répondre à un ticket posté par un autre utilisateur ou par lui-même. Un ticket ne peut recevoir qu'une seule réponse
