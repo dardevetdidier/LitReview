@@ -15,7 +15,6 @@
             <h2 class="create-title">Livre / Article</h2>
 
             <div class="create-form ">
-
                 <div class="user-form-label mb-3">
                     <label  for="user" class="form-label">Utilisateur</label><br>
                     {{ ticket_form.user }}
@@ -36,9 +35,7 @@
                     {{ ticket_form.image }}
                 </div>
             </div>
-
         </div>
-
 
 
         <!-- REVIEW -->
@@ -49,30 +46,16 @@
 
             <div class="create-form ">
 
-{#                <div class="review-ticket mb-3">#}
-{#                    <label for="ticket" class="form-label">Ticket</label><br>#}
-{#                    {{ review_form.ticket }}#}
-{#                </div>#}
-{##}
-{#                <div class="user-form-label mb-3">#}
-{#                    <label  for="user" class="form-label">Utilisateur</label><br>#}
-{#                    {{ review_form.user }}#}
-{#                </div>#}
-
                 <div class="mb-3">
                     <label for="headline" class="form-label">Titre</label><br>
                     {{ review_form.headline }}
                 </div>
 
+                <div class="mb-3 ">
+                    <label class="form-label" for="rating">Note</label>
+                    {{ review_form.rating }}
+                </div>
 
-                    <div class="mb-3 ">
-                <label class="form-label" for="rating">Note</label>
-                        {{ review_form.rating }}
-{#                        <input class="form-check-input" type="radio" id="rating"#}
-{#                               value='{{ forloop.counter }}'>#}
-
-                    </div>
-{#                {% endfor %}#}
 
             {{ review_form.errors }}
             {{ review_form.rating.errors }}
@@ -89,13 +72,8 @@
 
             </div>
 
-            <button type="submit" class="btn-create btn btn-success">Créer</button>
-
+            <button type="submit" class="btn-create btn btn-outline-dark">Créer</button>
         </div>
-
-
     </form>
-
-
 
 {% endblock %}

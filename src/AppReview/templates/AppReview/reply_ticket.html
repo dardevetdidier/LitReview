@@ -5,10 +5,6 @@
 {% block content %}
     <br>
 
-
-
-
-
     <div class="create-review-content container-fluid">
 
         <h2 class="reply-title">Répondre à ce ticket</h2>
@@ -37,7 +33,7 @@
                     </div>
                 </div>
 
-                {#      body#}
+                {#      body #}
                 <div class="card-body ">
                     <h5 class="card-title">{{ ticket.title }}</h5>
 
@@ -62,11 +58,6 @@
     <form method="POST">
         {% csrf_token %}
         <div class="create-form ">
-
-{#            <div class="review-ticket mb-3">#}
-{#                <label for="ticket" class="form-label">Ticket</label><br>#}
-{#                {{ reply_form.ticket }}#}
-{#            </div>#}
 
             <div class="mb-3">
                 <label for="headline" class="form-label">Titre</label><br>
@@ -99,11 +90,8 @@
                 <button type="button" class="btn-create btn btn-outline-dark">Annuler</button>
             </a>
             <button type="submit" class="btn-create btn btn-dark" >Créer</button>
-
         </div>
     </form>
 </div>
-
-
 
 {% endblock %}

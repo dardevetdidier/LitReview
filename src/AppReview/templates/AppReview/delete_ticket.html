@@ -6,8 +6,6 @@
 
 {% block content %}
 
-
-
     <div class="snippet-content container-fluid">
         <h2>Supprimer un ticket</h2>
         <div class="snippet-card card ">
@@ -53,8 +51,6 @@
     </div>
 
 
-
-
     <form action="{% url 'delete-ticket' ticket.id %}" method="post">
         {% csrf_token %}
 
@@ -72,9 +68,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-
                         <button type="submit" class="btn btn-primary">Confirmer</button>
-
                     </div>
                 </div>
             </div>

@@ -26,12 +26,7 @@
         <div class="card-body">
             <h5 class="review-title-card card-title">{{ review.headline }}</h5>
             <h6 class="note-review card-subtitle mb-2 text-muted">Note : {{ review.rating }} / 5</h6>
-{#            {% for i in post.rating %}#}
-{#            <i class="fas fa-star"></i>#}
-{#            {% endfor %}#}
             <p class="card-text">{{ review.body }}</p>
-
-
         </div>
 
         {#    TICKET#}
@@ -63,7 +58,6 @@
                 <button type="button" class="btn-create btn btn-outline-dark">Annuler</button>
             </a>
             <button type="button" class="btn-create btn btn-dark" data-bs-toggle="modal" data-bs-target="#deleteModal">Supprimer</button>
-
         </div>
 </div>
 

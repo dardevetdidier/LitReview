@@ -134,8 +134,6 @@ def add_review(request):
         ticket = Ticket.objects.last()
 
         if review_form.is_valid():
-            # print(review_form.cleaned_data)
-            # print("review_form valide")
             review = review_form.save(commit=False)
             ticket.reply = True
             review.ticket = ticket

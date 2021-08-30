@@ -19,15 +19,11 @@
                     {{ modify_review_form.headline }}
                 </div>
 
-{#                {% for i in x|ljust:"5" %}#}
+
                     <div class="mb-3 ">
                         <label class="form-label" for="rating">Note</label>
                         {{ modify_review_form.rating }}
-{#                        <input class="form-check-input" type="radio" id="rating"#}
-{#                               value='{{ forloop.counter }}'>#}
-
                     </div>
-{#                {% endfor %}#}
 
             {{ modify_review_form.errors }}
             {{ modify_review_form.rating.errors }}
